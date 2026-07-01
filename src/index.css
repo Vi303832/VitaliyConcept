@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #C5A059; /* Brand Bronze */
+  --color-primary: #C5A059;
   --color-primary-dark: #775A19;
   --color-primary-container: #c5a059;
   --color-on-primary: #ffffff;
-  
-  --color-obsidian: #1A1A1A; /* Obsidian */
+  --color-primary-fixed: #ffdea5;
+
+  --color-obsidian: #1A1A1A;
   --color-on-surface: #1a1c1c;
   --color-surface: #f9f9f9;
   --color-surface-dim: #dadada;
@@ -23,59 +24,112 @@
   --font-sans: "Manrope", sans-serif;
 }
 
-/* Custom Base Rules for Sharp Theme */
 @layer base {
   html {
     scroll-behavior: smooth;
     background-color: #f9f9f9;
     color: #1a1c1c;
   }
-  
-  /* Force sharp corners on everything in the application */
+
   *, *::before, *::after {
     border-radius: 0px !important;
   }
-  
-  /* Heading sizes matching typography guidelines */
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 400;
   }
-  
+
   p, span, a, button, input, textarea, select, label {
     font-family: var(--font-sans);
   }
 
-  /* Custom scrollbar and glass effects */
   ::-webkit-scrollbar {
     width: 6px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: #f9f9f9;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: #dadada;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: #C5A059;
   }
 }
 
-/* Custom layout helper */
-.container-max {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-@media (min-width: 768px) {
+@layer components {
   .container-max {
-    padding-left: 64px;
-    padding-right: 64px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .container-max {
+      padding-left: 64px;
+      padding-right: 64px;
+    }
+  }
+
+  .btn-primary {
+    @apply inline-block bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-[0.15em] font-bold px-8 py-4 transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0px 12px 24px rgba(26, 26, 26, 0.05);
+  }
+
+  .btn-secondary {
+    @apply inline-block bg-obsidian hover:bg-primary text-white text-[10px] uppercase tracking-[0.15em] font-bold px-8 py-3.5 transition-all duration-300;
+  }
+
+  .btn-animated,
+  .btn-animated-circle {
+    border-radius: 9999px !important;
+  }
+
+  .btn-animated:hover {
+    box-shadow: 0px 12px 24px rgba(26, 26, 26, 0.08);
+  }
+
+  .section-label {
+    @apply text-[10px] uppercase tracking-[0.25em] text-primary font-bold;
+  }
+
+  .service-card-header {
+    @apply flex items-center justify-between bg-surface-container-lowest px-5 py-3.5 border-b border-obsidian/10;
+  }
+
+  .notched-frame {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 48px) 0,
+      100% 48px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .process-step-image {
+    @apply w-28 h-28 sm:w-32 sm:h-32 mx-auto overflow-hidden border border-obsidian/10;
+    border-radius: 50% !important;
+  }
+
+  .form-field {
+    @apply w-full bg-surface-container-low border border-obsidian/10 text-sm py-3 px-4 focus:outline-none focus:border-obsidian transition-colors placeholder:text-outline/50;
+  }
+
+  .check-item {
+    @apply flex gap-3 items-start;
+  }
+
+  .check-icon {
+    @apply shrink-0 w-5 h-5 border border-primary flex items-center justify-center text-primary text-[10px] font-bold mt-0.5;
   }
 }
