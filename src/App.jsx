@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import AnimatedButton from './components/AnimatedButton'
 import HeroSlider from './components/HeroSlider'
 import MediaEmbed from './components/MediaEmbed'
@@ -6,6 +7,21 @@ import heroBg from './assets/hero_bg.png'
 import ceramicArt from './assets/ceramic_art.png'
 import showroomBath from './assets/showroom_bath.png'
 import heroImg from './assets/hero.png'
+import { 
+  Phone, 
+  Mail, 
+  MapPin, 
+  User, 
+  ChevronLeft, 
+  ChevronRight, 
+  ChevronDown, 
+  ArrowUp, 
+  Trees, 
+  Wrench, 
+  Truck, 
+  ShieldCheck, 
+  Award 
+} from 'lucide-react'
 
 const NAV_LINKS = [
   { href: '#home', label: 'Anasayfa' },
@@ -166,52 +182,20 @@ function ProcessArrow() {
 
 function TrustFeatureIcon({ type }) {
   const props = {
-    width: 28,
-    height: 28,
-    viewBox: '0 0 24 24',
-    fill: 'none',
-    stroke: 'currentColor',
+    size: 28,
     strokeWidth: 1.5,
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round',
-    'aria-hidden': true,
+    className: "text-current"
   }
 
   switch (type) {
     case 'craft':
-      return (
-        <svg {...props}>
-          <path d="M12 3v3" />
-          <path d="M8 6h8" />
-          <path d="M7 9h10l-1 11H8L7 9z" />
-          <path d="M10 13h4" />
-        </svg>
-      )
+      return <Award {...props} />
     case 'delivery':
-      return (
-        <svg {...props}>
-          <path d="M14 4l4 4-4 4" />
-          <path d="M18 8H9a4 4 0 0 0-4 4v1" />
-          <path d="M6 17v3" />
-          <path d="M10 17v3" />
-        </svg>
-      )
+      return <Truck {...props} />
     case 'team':
-      return (
-        <svg {...props}>
-          <path d="M12 3l7 4v6c0 3.5-3 6-7 8-4-2-7-4.5-7-8V7l7-4z" />
-          <circle cx="12" cy="11" r="2.5" />
-          <path d="M9 15c.6 1.2 1.8 2 3 2s2.4-.8 3-2" />
-        </svg>
-      )
+      return <ShieldCheck {...props} />
     case 'warranty':
-      return (
-        <svg {...props}>
-          <path d="M7 4h10l2 4v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8l2-4z" />
-          <path d="M12 8v8" />
-          <path d="M9 12h6" />
-        </svg>
-      )
+      return <Wrench {...props} />
     default:
       return null
   }
@@ -243,9 +227,17 @@ function App() {
   const [scrolled, setScrolled] = useState(false)
   const [activeProj, setActiveProj] = useState(2)
   const [activeReview, setActiveReview] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40)
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0
+      setScrollProgress(progress)
+      setShowScrollTop(window.scrollY > 300)
+    }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -497,7 +489,7 @@ function App() {
         <div className="container-max">
           <div className="process-header">
             <span className="section-label block">Profesyonel İş Akışı</span>
-            <h2 className="font-display">Çalışma Sürecimiz</h2>
+            <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-obsidian leading-tight">Çalışma Sürecimiz</h2>
             <p>Projelerinizin hayata geçiş aşamaları</p>
           </div>
 
@@ -583,10 +575,10 @@ function App() {
               <div className="flex items-center gap-4 mt-8">
                 <button
                   onClick={() => setActiveProj(prev => (prev > 0 ? prev - 1 : REFERENCE_PROJECTS.length - 1))}
-                  className="w-12 h-12 border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 text-sm font-semibold"
+                  className="w-12 h-12 border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
                   aria-label="Önceki Proje"
                 >
-                  ←
+                  <ChevronLeft className="w-5 h-5" />
                 </button>
                 
                 {/* Dots indicator */}
@@ -605,10 +597,10 @@ function App() {
 
                 <button
                   onClick={() => setActiveProj(prev => (prev < REFERENCE_PROJECTS.length - 1 ? prev + 1 : 0))}
-                  className="w-12 h-12 border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 text-sm font-semibold"
+                  className="w-12 h-12 border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
                   aria-label="Sonraki Proje"
                 >
-                  →
+                  <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -618,7 +610,7 @@ function App() {
               <span className="section-label block">Ürünlerimiz &nbsp;•&nbsp; {REFERENCE_PROJECTS[activeProj].tag}</span>
               
               {/* Heading exactly matching screenshot style */}
-              <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
+              <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-obsidian leading-tight">
                 Mekanlara Değer Katan Seçkin Ürünlerimiz.
               </h2>
               
@@ -751,17 +743,17 @@ function App() {
                 <div className="flex gap-2">
                   <button 
                     onClick={() => setActiveReview(prev => (prev > 0 ? prev - 1 : REVIEWS.length - 1))}
-                    className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90"
+                    className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90 cursor-pointer"
                     aria-label="Önceki Yorum"
                   >
-                    ←
+                    <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button 
                     onClick={() => setActiveReview(prev => (prev < REVIEWS.length - 1 ? prev + 1 : 0))}
-                    className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90"
+                    className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90 cursor-pointer"
                     aria-label="Sonraki Yorum"
                   >
-                    →
+                    <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -778,10 +770,8 @@ function App() {
 
               {/* Card 2: Top-Right Stats Card */}
               <div className="border border-obsidian/10 bg-surface-container-low p-6 flex flex-col justify-center items-center text-center rounded-[24px] h-[200px] space-y-3">
-                {/* Bronze custom vector tree/decor matching screenshot */}
-                <svg className="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M12 2L9 7h6L12 2zM12 7l-4 6h8l-4-6zM12 13l-5 7h10l-5-7zM12 20v2" />
-                </svg>
+                {/* Lucide Trees Icon */}
+                <Trees className="w-8 h-8 text-primary" strokeWidth={1.5} />
                 <div>
                   <span className="font-sans font-extrabold text-4xl text-obsidian tracking-tight block">250+</span>
                   <span className="text-[10px] uppercase tracking-[0.1em] text-outline font-bold mt-1 block">Tamamlanan Proje</span>
@@ -820,8 +810,14 @@ function App() {
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
             
-            {/* Left Column: Info Text & Checklist */}
-            <div className="lg:col-span-6 flex flex-col justify-center space-y-8">
+            {/* Left Column: Info Text & Checklist (Motion Fade-in from Left) */}
+            <motion.div 
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="lg:col-span-6 flex flex-col justify-center space-y-8"
+            >
               <div className="space-y-4">
                 <span className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-primary block">Ücretsiz Teklif</span>
                 <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-[42px] text-obsidian leading-[1.1] tracking-tight">
@@ -857,10 +853,16 @@ function App() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Right Column: Form Card with Rounded Corners */}
-            <div className="lg:col-span-6 bg-[#E6E5E0]/40 border border-obsidian/10 p-8 md:p-10 rounded-[32px] shadow-sm">
+            {/* Right Column: Form Card with Rounded Corners (Motion Fade-in and Slide-up) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
+              className="lg:col-span-6 bg-[#E6E5E0]/40 border border-obsidian/10 p-8 md:p-10 rounded-[32px] shadow-sm"
+            >
               <form onSubmit={handleSubmit} className="space-y-4 text-left">
                 <div>
                   <h3 className="font-sans font-extrabold text-xl sm:text-2xl text-obsidian tracking-tight">Ücretsiz Teklif Alın</h3>
@@ -918,7 +920,7 @@ function App() {
                         <option value="Mutfak & Tezgah Arası">Mutfak & Tezgah Arası</option>
                         <option value="Dış Mekan & Teras Porselen">Dış Mekan & Teras Porselen</option>
                       </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-obsidian/60 text-xs">▼</div>
+                      <ChevronDown className="w-4 h-4 text-obsidian/60 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                     </div>
                   </div>
 
@@ -933,7 +935,7 @@ function App() {
                         <option value="Bursa Showroom">Bursa Showroom (Ahmet Yesevi, Nilüfer)</option>
                         <option value="Online Showroom">Online Showroom / WhatsApp Destek</option>
                       </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-obsidian/60 text-xs">▼</div>
+                      <ChevronDown className="w-4 h-4 text-obsidian/60 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                     </div>
                   </div>
 
@@ -964,7 +966,7 @@ function App() {
                   )}
                 </div>
               </form>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -1024,6 +1026,67 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Actions (WhatsApp + Scroll Progress Top Button) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-center">
+        
+        {/* WhatsApp Floating Button */}
+        <a
+          href="https://wa.me/905413587611"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative w-12 h-12 bg-[#25D366] hover:bg-[#20BA5A] text-white flex items-center justify-center rounded-full shadow-lg transition-all duration-300 active:scale-95 cursor-pointer animate-whatsapp-pulse"
+          aria-label="WhatsApp ile İletişime Geçin"
+        >
+          {/* Rippling attention-grabber effect */}
+          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-40 -z-10"></span>
+          
+          <img src="/img/whatsapp_new.png" className="w-8 h-8 object-contain relative z-10 invert brightness-200" alt="WhatsApp" />
+        </a>
+
+        {/* Scroll Progress & Back to Top Button */}
+        {showScrollTop && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="relative w-12 h-12 flex items-center justify-center bg-white border border-obsidian/10 rounded-full shadow-lg"
+          >
+            <svg className="w-12 h-12 transform -rotate-90 absolute">
+              <circle
+                className="text-obsidian/5"
+                strokeWidth="2.5"
+                stroke="currentColor"
+                fill="transparent"
+                r="21"
+                cx="24"
+                cy="24"
+              />
+              <circle
+                className="text-primary"
+                strokeWidth="2.5"
+                strokeDasharray={132}
+                strokeDashoffset={132 - (132 * scrollProgress) / 100}
+                strokeLinecap="round"
+                stroke="currentColor"
+                fill="transparent"
+                r="21"
+                cx="24"
+                cy="24"
+              />
+            </svg>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-obsidian hover:text-primary transition-colors text-base font-bold z-10 cursor-pointer"
+              aria-label="Yukarı Çık"
+            >
+              ↑
+            </button>
+          </motion.div>
+        )}
+
+      </div>
 
     </div>
   )
