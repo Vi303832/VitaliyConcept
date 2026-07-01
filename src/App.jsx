@@ -186,13 +186,27 @@ function App() {
       </section>
 
       {/* About — Split 1: Text left, Image right */}
-      <section id="about" className="py-20 bg-surface border-t border-obsidian/10">
-        <div className="container-max">
+      <section id="about" className="about-section relative py-20 bg-surface border-t border-obsidian/10 overflow-hidden">
+        <div className="about-gold-bg" aria-hidden="true">
+          <svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" fill="none">
+            <line x1="-80" y1="140" x2="820" y2="300" className="about-gold-stroke" />
+            <line x1="120" y1="-40" x2="1280" y2="200" className="about-gold-stroke about-gold-stroke--soft" />
+            <line x1="480" y1="720" x2="1100" y2="380" className="about-gold-stroke about-gold-stroke--soft" />
+            <line x1="720" y1="60" x2="1320" y2="480" className="about-gold-stroke" />
+            <line x1="900" y1="-20" x2="1280" y2="260" className="about-gold-stroke about-gold-stroke--light" />
+          </svg>
+        </div>
+
+        <div className="container-max relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-6">
               <span className="section-label block">Güvenilir Hizmet</span>
-              <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                Güvenilir Döşeme, Dürüst Hizmet. Her Zaman.
+              <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
+                Güvenilir Döşeme,
+                <br />
+                Dürüst Hizmet.
+                <br />
+                Her Zaman.
               </h2>
               <p className="text-sm text-outline leading-relaxed">
                 Vitaly Concept, 20 yılı aşkın tecrübesiyle seramik sektöründe fark yaratmaya devam ediyor.
@@ -200,7 +214,7 @@ function App() {
               </p>
               <CheckList items={TRUST_POINTS} />
               <div className="pt-2">
-                <AnimatedButton href="#contact" size="sm">
+                <AnimatedButton href="#contact" size="lg">
                   Daha Fazla Bilgi
                 </AnimatedButton>
               </div>
@@ -208,7 +222,7 @@ function App() {
 
             <div className="relative">
               <div className="aspect-[4/5] overflow-hidden border border-obsidian/10">
-                <img src={showroomBath} alt="Vitaly Concept Showroom" className="w-full h-full object-cover" />
+                <img src="/img/mekan_calacata marmi.jpg" alt="Calacatta Marmi seramik uygulama" className="w-full h-full object-cover" />
               </div>
               <div className="absolute bottom-6 left-6 bg-surface-container-lowest border border-obsidian/10 px-5 py-4 shadow-sm">
                 <div className="flex items-center gap-2">
