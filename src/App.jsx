@@ -235,7 +235,8 @@ function App() {
     name: '',
     phone: '',
     email: '',
-    service: 'Planlama',
+    service: 'Banyo Tasarımı',
+    store: 'Bursa Showroom',
     message: '',
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -254,7 +255,7 @@ function App() {
     if (formData.name && formData.phone) {
       setFormSubmitted(true)
       setTimeout(() => {
-        setFormData({ name: '', phone: '', email: '', service: 'Planlama', message: '' })
+        setFormData({ name: '', phone: '', email: '', service: 'Banyo Tasarımı', store: 'Bursa Showroom', message: '' })
         setFormSubmitted(false)
       }, 5000)
     }
@@ -814,128 +815,157 @@ function App() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="py-20 bg-surface-container-low border-t border-obsidian/10">
+      {/* Contact - Layout & Card Form Redesign */}
+      <section id="contact" className="py-20 bg-surface border-t border-obsidian/10">
         <div className="container-max">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            <div className="space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
+            
+            {/* Left Column: Info Text & Checklist */}
+            <div className="lg:col-span-6 flex flex-col justify-center space-y-8">
               <div className="space-y-4">
-                <span className="section-label block">Bize Ulaşın</span>
-                <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                  Hayalinizdeki Projeyi Bugün Planlayın!
+                <span className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-primary block">Ücretsiz Teklif</span>
+                <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-[42px] text-obsidian leading-[1.1] tracking-tight">
+                  Seramik & Tasarım
+                  <br />
+                  Hizmetinizi Bugün Planlayın!
                 </h2>
-                <p className="text-sm text-outline leading-relaxed">
-                  Bireysel veya kurumsal seramik, vitrifiye ve banyo mobilyası ihtiyaçlarınız için bizimle iletişime geçin.
+                <p className="text-xs sm:text-sm text-outline leading-relaxed font-light">
+                  Sorularınız mı var veya yardıma mı ihtiyacınız var? Ekibimiz seramik, vitrifiye ve tasarım talepleriniz için yardıma hazır. Bugün iletişime geçin!
                 </p>
               </div>
 
-              <div className="space-y-5 border-t border-obsidian/10 pt-6">
-                <div className="flex gap-4 items-start">
-                  <div className="w-10 h-10 shrink-0 border border-obsidian/10 flex items-center justify-center text-primary text-sm">☎</div>
-                  <div>
-                    <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold block mb-1">Telefon</span>
-                    <a href="tel:+905330452886" className="block text-sm text-obsidian font-semibold hover:text-primary transition-colors">+90 533 045 28 86</a>
-                    <a href="tel:+905413587611" className="block text-sm text-obsidian font-semibold hover:text-primary transition-colors">+90 541 358 76 11</a>
+              <div className="space-y-5 pt-4">
+                <h4 className="font-bold text-xs sm:text-sm text-obsidian uppercase tracking-wider">Ekibimizle görüşerek şunları yapabilirsiniz:</h4>
+                <div className="space-y-4">
+                  <div className="flex gap-3 items-start">
+                    <span className="text-primary text-base font-bold shrink-0">✓</span>
+                    <span className="text-xs sm:text-sm text-outline font-light leading-relaxed">
+                      Seramik ve tasarım çözümlerimizin banyo ve salon projelerinizi nasıl güzelleştireceğini görün
+                    </span>
                   </div>
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <div className="w-10 h-10 shrink-0 border border-obsidian/10 flex items-center justify-center text-primary text-sm">✉</div>
-                  <div>
-                    <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold block mb-1">E-Posta</span>
-                    <a href="mailto:info@vitalyconcept.com" className="text-sm text-obsidian font-semibold hover:text-primary transition-colors">info@vitalyconcept.com</a>
+                  <div className="flex gap-3 items-start">
+                    <span className="text-primary text-base font-bold shrink-0">✓</span>
+                    <span className="text-xs sm:text-sm text-outline font-light leading-relaxed">
+                      Fiyatlandırma, teslimat planı veya malzeme ihtiyaçları hakkında tüm sorularınıza yanıt alın
+                    </span>
                   </div>
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <div className="w-10 h-10 shrink-0 border border-obsidian/10 flex items-center justify-center text-primary text-sm">◎</div>
-                  <div>
-                    <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold block mb-1">Adres</span>
-                    <p className="text-sm text-obsidian font-semibold leading-relaxed">
-                      Ahmet Yesevi, Sanayi Cd. No:563/D, 16140 Nilüfer/Bursa
-                    </p>
+                  <div className="flex gap-3 items-start">
+                    <span className="text-primary text-base font-bold shrink-0">✓</span>
+                    <span className="text-xs sm:text-sm text-outline font-light leading-relaxed">
+                      Kendi evinize, villanıza veya ticari projenize özel olarak hazırlanan teklifi teslim alın
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-surface-container border border-obsidian/10 p-8">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <h3 className="font-display text-xl text-obsidian mb-2">Bilgi ve Teklif Talebi Gönderin</h3>
+            {/* Right Column: Form Card with Rounded Corners */}
+            <div className="lg:col-span-6 bg-[#E6E5E0]/40 border border-obsidian/10 p-8 md:p-10 rounded-[32px] shadow-sm">
+              <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                <div>
+                  <h3 className="font-sans font-extrabold text-xl sm:text-2xl text-obsidian tracking-tight">Ücretsiz Teklif Alın</h3>
+                  <p className="text-xs text-outline leading-relaxed mt-1">
+                    Ücretsiz arama talep edin ve seramik uzmanlarımızdan hızlıca destek alın.
+                  </p>
+                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Adınız Soyadınız *</label>
+                <div className="space-y-4 pt-2">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-obsidian block">Ad Soyad</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Örn: Ahmet Yesevi"
-                      className="form-field"
+                      placeholder="Arlene McCoy"
+                      className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Telefon *</label>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-obsidian block">E-Posta</label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="hello@arlenemccoy.com"
+                      className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-obsidian block">Telefon Numarası</label>
                     <input
                       type="tel"
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="Örn: 0533 000 00 00"
-                      className="form-field"
+                      placeholder="111-222-3333"
+                      className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-obsidian block">Talep Edilen Hizmet</label>
+                    <div className="relative">
+                      <select
+                        value={formData.service}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                      >
+                        <option value="Banyo & Vitrifiye Tasarımı">Banyo & Vitrifiye Tasarımı</option>
+                        <option value="Salon & Antre Seramikleri">Salon & Antre Seramikleri</option>
+                        <option value="Mutfak & Tezgah Arası">Mutfak & Tezgah Arası</option>
+                        <option value="Dış Mekan & Teras Porselen">Dış Mekan & Teras Porselen</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-obsidian/60 text-xs">▼</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-obsidian block">Hangi showroom ile çalışmak istersiniz?</label>
+                    <div className="relative">
+                      <select
+                        value={formData.store}
+                        onChange={(e) => setFormData({ ...formData, store: e.target.value })}
+                        className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
+                      >
+                        <option value="Bursa Showroom">Bursa Showroom (Ahmet Yesevi, Nilüfer)</option>
+                        <option value="Online Showroom">Online Showroom / WhatsApp Destek</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-obsidian/60 text-xs">▼</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-obsidian block">Mesajınız</label>
+                    <textarea
+                      rows="3"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Lütfen banyo, seramik veya vitrifiye projenizin detaylarından bahsedin..."
+                      className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors resize-none"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">E-Posta</label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="Örn: info@example.com"
-                      className="form-field"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Hizmet Türü</label>
-                    <select
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="form-field cursor-pointer"
+                <div className="pt-2">
+                  {formSubmitted ? (
+                    <div className="bg-primary/10 border border-primary/20 text-primary-dark text-xs font-bold py-4 text-center rounded-[12px]">
+                      Talebiniz başarıyla iletildi. En kısa sürede sizinle irtibata geçeceğiz.
+                    </div>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="w-full bg-obsidian text-white text-xs uppercase tracking-[0.15em] font-bold py-4 rounded-[12px] hover:bg-primary transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
                     >
-                      <option value="Planlama">Planlama & Tasarım</option>
-                      <option value="Uygulama">Seramik Uygulama & Tadilat</option>
-                      <option value="Showroom">Showroom Ürün Seçimi</option>
-                      <option value="Toptan">Toptan Tedarik & İhracat</option>
-                    </select>
-                  </div>
+                      Teklif Alın / Gönder
+                    </button>
+                  )}
                 </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Mesajınız</label>
-                  <textarea
-                    rows="4"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Lütfen banyo, seramik veya vitrifiye projenizin detaylarından bahsedin..."
-                    className="form-field resize-none"
-                  />
-                </div>
-
-                {formSubmitted ? (
-                  <div className="bg-primary/10 border border-primary/20 text-primary-dark text-xs font-bold py-4 text-center">
-                    Mesajınız başarıyla iletildi. En kısa sürede sizinle irtibata geçeceğiz.
-                  </div>
-                ) : (
-                  <AnimatedButton type="submit" size="lg" fullWidth>
-                    Gönder
-                  </AnimatedButton>
-                )}
               </form>
             </div>
+
           </div>
         </div>
       </section>
