@@ -4,7 +4,7 @@ function HeroSlider({ items }) {
   const slides = [...items, ...items]
 
   return (
-    <div className="hero-slider mt-10 lg:mt-14 overflow-hidden" aria-hidden="true">
+    <div className="hero-slider mt-10 lg:mt-14 overflow-hidden max-md:px-6" aria-hidden="true">
       <div className="hero-slider-track flex items-end w-max gap-4 md:gap-5">
         {slides.map((item, idx) => (
           <div

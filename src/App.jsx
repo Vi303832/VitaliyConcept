@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import AnimatedButton from './components/AnimatedButton'
 import HeroSlider from './components/HeroSlider'
+import MediaEmbed from './components/MediaEmbed'
 import heroBg from './assets/hero_bg.png'
 import ceramicArt from './assets/ceramic_art.png'
 import showroomBath from './assets/showroom_bath.png'
@@ -25,6 +26,17 @@ const HERO_GALLERY = [
   { img: '/img/mekan_sagano (2).jpg', title: 'Sagano Uygulama', width: 1600, height: 2114 },
 ]
 
+const TRUST_MEDIA = {
+  poster: '/img/mekan_gold calacata.jpg',
+  src: '/video/trust-preview.mp4',
+  type: 'video',
+  slides: [
+    '/img/mekan_gold calacata.jpg',
+    '/img/mekan_calacata marmi.jpg',
+    '/img/mekan_river.jpg',
+  ],
+}
+
 const TRUST_POINTS = [
   'Kurumsal ve yenilikçi yaklaşım – Sektör tecrübemizi modern tasarımla buluşturuyoruz.',
   'Zengin ürün yelpazesi – Seramikten banyo dolaplarına kadar geniş seçenekler.',
@@ -32,10 +44,10 @@ const TRUST_POINTS = [
 ]
 
 const FEATURE_ICONS = [
-  { icon: '◆', title: 'Kaliteli İşçilik', desc: 'Ustalıkla uygulanan kusursuz montaj' },
-  { icon: '◷', title: 'Zamanında Teslimat', desc: 'Güçlü stok ve tedarik ağı' },
-  { icon: '◎', title: 'Uzman Ekip', desc: '20+ yıllık sektör deneyimi' },
-  { icon: '✓', title: 'Garantili Hizmet', desc: 'Satış öncesi ve sonrası destek' },
+  { icon: 'craft', title: 'Kaliteli İşçilik', desc: 'Ustalıkla uygulanan kusursuz montaj' },
+  { icon: 'delivery', title: 'Zamanında Teslimat', desc: 'Güçlü stok ve tedarik ağı' },
+  { icon: 'team', title: 'Uzman Ekip', desc: '20+ yıllık sektör deneyimi' },
+  { icon: 'warranty', title: 'Garantili Hizmet', desc: 'Satış öncesi ve sonrası destek' },
 ]
 
 const CATEGORIES = [
@@ -65,6 +77,59 @@ const FOOTER_SERVICES = [
 
 function StarRating() {
   return <span className="text-primary text-sm tracking-wider">★★★★★</span>
+}
+
+function TrustFeatureIcon({ type }) {
+  const props = {
+    width: 28,
+    height: 28,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    'aria-hidden': true,
+  }
+
+  switch (type) {
+    case 'craft':
+      return (
+        <svg {...props}>
+          <path d="M12 3v3" />
+          <path d="M8 6h8" />
+          <path d="M7 9h10l-1 11H8L7 9z" />
+          <path d="M10 13h4" />
+        </svg>
+      )
+    case 'delivery':
+      return (
+        <svg {...props}>
+          <path d="M14 4l4 4-4 4" />
+          <path d="M18 8H9a4 4 0 0 0-4 4v1" />
+          <path d="M6 17v3" />
+          <path d="M10 17v3" />
+        </svg>
+      )
+    case 'team':
+      return (
+        <svg {...props}>
+          <path d="M12 3l7 4v6c0 3.5-3 6-7 8-4-2-7-4.5-7-8V7l7-4z" />
+          <circle cx="12" cy="11" r="2.5" />
+          <path d="M9 15c.6 1.2 1.8 2 3 2s2.4-.8 3-2" />
+        </svg>
+      )
+    case 'warranty':
+      return (
+        <svg {...props}>
+          <path d="M7 4h10l2 4v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8l2-4z" />
+          <path d="M12 8v8" />
+          <path d="M9 12h6" />
+        </svg>
+      )
+    default:
+      return null
+  }
 }
 
 function CheckList({ items }) {
@@ -109,10 +174,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-surface text-on-surface font-sans antialiased">
+    <div className="min-h-screen bg-surface text-on-surface font-sans antialiased overflow-x-hidden">
 
       {/* Top Bar */}
-      <div className="bg-obsidian text-surface text-center py-2.5 text-[10px] uppercase tracking-[0.2em] font-semibold">
+      <div className="bg-obsidian text-surface text-center py-2.5 px-6 text-[10px] uppercase tracking-[0.2em] font-semibold">
         Hayal Ettiğiniz Projelere Kavuşturur &nbsp;•&nbsp; Bursa — Fransa — Almanya
       </div>
 
@@ -237,38 +302,57 @@ function App() {
       </section>
 
       {/* Trust — Split 2: Image left, Text right + icon row */}
-      <section className="py-20 bg-surface-container-low border-t border-obsidian/10">
-        <div className="container-max space-y-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="aspect-[16/11] overflow-hidden border border-obsidian/10 order-2 lg:order-1">
-              <img src={ceramicArt} alt="Seramik uygulama detayı" className="w-full h-full object-cover" />
-            </div>
+      <section className="border-t border-obsidian/10">
+        <div className="py-20 bg-surface">
+          <div className="container-max">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <MediaEmbed
+                className="trust-media aspect-[16/11] order-2 lg:order-1"
+                poster={TRUST_MEDIA.poster}
+                src={TRUST_MEDIA.src}
+                type={TRUST_MEDIA.type}
+                slides={TRUST_MEDIA.slides}
+                alt="Vitaly Concept showroom ve uygulama önizlemesi"
+              />
 
-            <div className="space-y-6 order-1 lg:order-2">
-              <span className="section-label block">Neden Biz?</span>
-              <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                Yerel Halk Neden Vitaly Concept'e Güveniyor?
-              </h2>
-              <p className="text-sm text-outline leading-relaxed">
-                Güçlü stok ve tedarik ağımız sayesinde projelerinizi aksatmadan, hızlı ve güvenilir teslimat garantisi sunuyoruz.
-                Bursa'nın yanı sıra Fransa ve Almanya gibi uluslararası pazarlarda da kalitemizi kanıtlayarak müşteri memnuniyetini en üst seviyeye taşıyoruz.
-              </p>
-              <AnimatedButton href="#contact" size="sm">
-                Hemen İletişime Geçin
-              </AnimatedButton>
+              <div className="space-y-6 order-1 lg:order-2">
+                <span className="section-label block">Neden Biz?</span>
+                <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
+                  Yerel Halk Neden
+                  <br />
+                  Vitaly Concept'e
+                  <br />
+                  Güveniyor?
+                </h2>
+                <p className="text-sm text-outline leading-relaxed max-w-lg">
+                  Güçlü stok ve tedarik ağımız sayesinde projelerinizi aksatmadan, hızlı ve güvenilir teslimat garantisi sunuyoruz.
+                  Bursa'nın yanı sıra Fransa ve Almanya gibi uluslararası pazarlarda da kalitemizi kanıtlayarak müşteri memnuniyetini en üst seviyeye taşıyoruz.
+                </p>
+                <AnimatedButton href="#contact" size="lg">
+                  Hemen İletişime Geçin
+                </AnimatedButton>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 border-t border-obsidian/10 pt-12">
-            {FEATURE_ICONS.map((item, idx) => (
-              <div key={idx} className="text-center space-y-3 px-2">
-                <div className="w-12 h-12 mx-auto border border-obsidian/10 flex items-center justify-center text-primary text-lg font-bold">
-                  {item.icon}
+        <div className="trust-features-band bg-surface-container-low border-t border-obsidian/10">
+          <div className="container-max">
+            <div className="trust-features-grid">
+              {FEATURE_ICONS.map((item, idx) => (
+                <div key={idx} className="trust-feature-col">
+                  <div className="trust-feature-icon text-obsidian">
+                    <TrustFeatureIcon type={item.icon} />
+                  </div>
+                  <h3 className="font-sans text-base font-bold text-obsidian leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-outline leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="text-xs uppercase tracking-[0.1em] font-bold text-obsidian">{item.title}</h3>
-                <p className="text-xs text-outline leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
