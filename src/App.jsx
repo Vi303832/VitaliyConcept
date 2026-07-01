@@ -1,522 +1,633 @@
 import React, { useState, useEffect } from 'react'
+import heroBg from './assets/hero_bg.png'
+import ceramicArt from './assets/ceramic_art.png'
+import showroomBath from './assets/showroom_bath.png'
 
 function App() {
-  // State management
-  const [waterCount, setWaterCount] = useState(2) // in cups (250ml each)
-  const [activeTab, setActiveTab] = useState('dashboard')
-  const [heartRate, setHeartRate] = useState(72)
-  const [score, setScore] = useState(65)
-  const [goals, setGoals] = useState([
-    { id: 1, text: '10.000 Adım At', completed: false, value: 15 },
-    { id: 2, text: '2 Litre Su İç', completed: false, value: 10 },
-    { id: 3, text: '7-8 Saat Uyu', completed: true, value: 20 },
-    { id: 4, text: '30 Dk Egzersiz Yap', completed: false, value: 15 },
-    { id: 5, text: '5 Dk Nefes Egzersizi', completed: false, value: 10 },
-  ])
-  const [userName] = useState('Mehmet')
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: 'Planlama', message: '' })
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
-  // Simulate heart rate change for micro-animation effect
+  // Scroll detection for navbar shadow/bg transitions
   useEffect(() => {
-    const interval = setInterval(() => {
-      setHeartRate(prev => {
-        const diff = Math.floor(Math.random() * 5) - 2
-        const next = prev + diff
-        return Math.max(60, Math.min(100, next))
-      })
-    }, 4000)
-    return () => clearInterval(interval)
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Calculate score based on goals completed
-  useEffect(() => {
-    const baseScore = 40 // Starting base score
-    const completedScore = goals.reduce((acc, goal) => acc + (goal.completed ? goal.value : 0), 0)
-    
-    // Additional points for water intake
-    const waterPoints = Math.min(30, waterCount * 3)
-    setScore(Math.min(100, baseScore + completedScore + waterPoints))
-  }, [goals, waterCount])
-
-  const toggleGoal = (id) => {
-    setGoals(prevGoals =>
-      prevGoals.map(goal =>
-        goal.id === id ? { ...goal, completed: !goal.completed } : goal
-      )
-    )
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (formData.name && formData.phone) {
+      setFormSubmitted(true)
+      setTimeout(() => {
+        setFormData({ name: '', phone: '', email: '', service: 'Planlama', message: '' })
+        setFormSubmitted(false)
+      }, 5000)
+    }
   }
 
-  // Water calculations
-  const waterGoal = 8 // cups
-  const waterProgress = Math.min(100, (waterCount / waterGoal) * 100)
-
   return (
-    <div className="flex min-h-screen bg-[#080711] text-slate-100 font-sans selection:bg-fuchsia-500 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-surface text-on-surface font-sans antialiased">
       
-      {/* Sidebar Navigation */}
-      <aside className="w-20 md:w-64 bg-[#0d0c1e]/60 border-r border-white/5 backdrop-blur-xl flex flex-col items-center md:items-stretch p-4 md:p-6 transition-all duration-300 z-20">
-        <div className="flex items-center gap-3 mb-10 mt-2 px-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-fuchsia-500 via-violet-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-fuchsia-500/20 animate-pulse">
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <span className="hidden md:block font-['Outfit'] font-bold text-xl bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-            Vitality
-          </span>
+      {/* Upper Thin Bar */}
+      <div className="bg-obsidian text-surface text-center py-2 text-[10px] uppercase tracking-[0.2em] font-semibold border-b border-white/10">
+        Hayal Ettiğiniz Projelere Kavuşturur • Bursa - Fransa - Almanya
+      </div>
+
+      {/* Glassmorphic Navbar with Sharp Design */}
+      <header className={`sticky top-0 z-50 transition-all duration-500 border-b ${
+        scrolled 
+          ? 'bg-surface/90 backdrop-blur-md py-4 border-obsidian/10 shadow-sm' 
+          : 'bg-surface py-6 border-obsidian/5'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+          <a href="#home" className="flex flex-col group">
+            <span className="font-display font-bold text-xl md:text-2xl tracking-wider text-obsidian uppercase">
+              VITALY CONCEPT
+            </span>
+            <span className="text-[9px] uppercase tracking-[0.15em] text-outline font-semibold">
+              Seramik • Vitrifiye • Tasarım
+            </span>
+          </a>
+
+          {/* Nav Links */}
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#home" className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors">Anasayfa</a>
+            <a href="#about" className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors">Kurumsal</a>
+            <a href="#categories" className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors">Ürünler</a>
+            <a href="#references" className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors">Referanslar</a>
+            <a href="#contact" className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors">İletişim</a>
+          </nav>
+
+          {/* Sharp Bronze CTA Button */}
+          <a 
+            href="#contact" 
+            className="bg-primary hover:bg-primary-dark text-white text-[10px] uppercase tracking-[0.15em] font-bold px-6 py-3 transition-all duration-300 shadow-sm hover:shadow-md"
+          >
+            Ücretsiz Teklif Al
+          </a>
         </div>
+      </header>
 
-        <nav className="flex-1 w-full space-y-2">
-          <button
-            id="nav-dashboard"
-            onClick={() => setActiveTab('dashboard')}
-            className={`w-full flex items-center justify-center md:justify-start gap-4 px-4 py-3 rounded-xl transition-all duration-300 group ${
-              activeTab === 'dashboard'
-                ? 'bg-gradient-to-r from-fuchsia-500/10 to-indigo-500/10 border border-fuchsia-500/20 text-fuchsia-400'
-                : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
-            }`}
-          >
-            <svg className="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" />
-            </svg>
-            <span className="hidden md:block font-medium text-sm">Panel</span>
-          </button>
-
-          <button
-            id="nav-analytics"
-            onClick={() => setActiveTab('analytics')}
-            className={`w-full flex items-center justify-center md:justify-start gap-4 px-4 py-3 rounded-xl transition-all duration-300 group ${
-              activeTab === 'analytics'
-                ? 'bg-gradient-to-r from-fuchsia-500/10 to-indigo-500/10 border border-fuchsia-500/20 text-fuchsia-400'
-                : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
-            }`}
-          >
-            <svg className="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-            <span className="hidden md:block font-medium text-sm">Analizler</span>
-          </button>
-
-          <button
-            id="nav-settings"
-            onClick={() => setActiveTab('settings')}
-            className={`w-full flex items-center justify-center md:justify-start gap-4 px-4 py-3 rounded-xl transition-all duration-300 group ${
-              activeTab === 'settings'
-                ? 'bg-gradient-to-r from-fuchsia-500/10 to-indigo-500/10 border border-fuchsia-500/20 text-fuchsia-400'
-                : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
-            }`}
-          >
-            <svg className="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span className="hidden md:block font-medium text-sm">Ayarlar</span>
-          </button>
-        </nav>
-
-        {/* User Card in Sidebar */}
-        <div className="w-full bg-white/5 border border-white/5 p-3 rounded-2xl flex items-center gap-3 mt-auto">
-          <div className="w-10 h-10 rounded-xl bg-[#1b1935] flex items-center justify-center font-bold text-fuchsia-400 border border-fuchsia-500/20">
-            {userName[0]}
+      {/* Hero Section */}
+      <section id="home" className="pt-16 pb-20 bg-surface">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center space-y-8">
+          
+          {/* Label with borders */}
+          <div className="flex items-center justify-center gap-4 max-w-md mx-auto">
+            <div className="h-[1px] bg-outline-variant flex-1"></div>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-primary font-bold">
+              PLANLAMA • UYGULAMA • TESLİMAT
+            </span>
+            <div className="h-[1px] bg-outline-variant flex-1"></div>
           </div>
-          <div className="hidden md:block">
-            <h4 className="text-xs text-slate-400 font-medium">Hoş Geldiniz</h4>
-            <p className="text-sm font-bold font-['Outfit'] text-slate-200">{userName}</p>
-          </div>
-        </div>
-      </aside>
+          
+          <h1 className="font-display font-normal text-4xl sm:text-5xl lg:text-6xl tracking-tight text-obsidian max-w-4xl mx-auto leading-tight">
+            Yepyeni Ve Güzel Zeminler <br />
+            <span className="text-primary italic">Doğru Yöntemle</span> Döşendi.
+          </h1>
 
-      {/* Main Panel Area */}
-      <main className="flex-1 min-w-0 p-6 md:p-10 flex flex-col space-y-8 overflow-y-auto">
-        
-        {/* Top Header */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <p className="text-sm sm:text-base text-outline max-w-2xl mx-auto leading-relaxed font-light">
+            Seramik sanatında özgünlük ve zarafet. Vitaly Concept ile hayal gücünüzü gerçeğe dönüştürün, mekânlarınızda eşsiz bir sanat deneyimi yaşayın.
+          </p>
+
           <div>
-            <h1 className="font-['Outfit'] font-extrabold text-3xl md:text-4xl bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
-              Zindelik Paneli
-            </h1>
-            <p className="text-sm text-slate-400 mt-1">
-              Bugün kendinizi harika hissetmek için bir adım daha atın.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-4 self-end md:self-auto">
-            <div className="bg-white/5 border border-white/5 px-4 py-2 rounded-2xl flex items-center gap-2 text-xs font-semibold text-slate-400 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-              Cihaz Bağlı
-            </div>
-            
-            <button 
-              id="btn-sync" 
-              className="bg-gradient-to-r from-fuchsia-500 to-indigo-500 hover:from-fuchsia-600 hover:to-indigo-600 text-white font-semibold text-sm px-5 py-2.5 rounded-2xl shadow-lg shadow-fuchsia-500/10 hover:shadow-fuchsia-500/20 active:scale-95 transition-all duration-300"
+            <a 
+              href="#contact" 
+              className="inline-block bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-[0.15em] font-bold px-8 py-4 transition-all duration-300 shadow-md hover:shadow-lg"
             >
-              Senkronize Et
-            </button>
+              HEMEN TEKLİF AL
+            </a>
           </div>
-        </header>
 
-        {activeTab === 'dashboard' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Horizontal Gallery (4 sharp images) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10">
+            {[
+              { img: heroBg, title: 'Gold Calacatta Uygulaması' },
+              { img: ceramicArt, title: 'River Full Lappato Detay' },
+              { img: showroomBath, title: 'Lüks Vitrifiye Armatür' },
+              { img: heroBg, title: 'Mat Beton Efekt Seramik' }
+            ].map((item, idx) => (
+              <div key={idx} className="relative aspect-[4/3] overflow-hidden border border-obsidian/10 group">
+                <img 
+                  src={item.img} 
+                  alt={item.title} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-obsidian/20 group-hover:bg-obsidian/5 transition-all duration-300"></div>
+                <div className="absolute bottom-3 left-3 bg-surface/90 border border-obsidian/10 px-2.5 py-1">
+                  <span className="text-[9px] uppercase tracking-[0.1em] font-bold text-obsidian">{item.title}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* About & Trust Section (Güvenilir Döşeme...) */}
+      <section id="about" className="py-20 border-t border-obsidian/10 bg-surface">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Left Column: Key Stats Dashboard */}
-            <div className="lg:col-span-2 space-y-8">
+            {/* Left Content */}
+            <div className="lg:col-span-7 space-y-6">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-primary font-bold block">GÜVENİLİR HİZMET</span>
               
-              {/* Stat Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                {/* Heart Rate Card */}
-                <div className="relative overflow-hidden bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-6 backdrop-blur-xl group hover:border-fuchsia-500/30 transition-all duration-500">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-fuchsia-500/5 rounded-full blur-2xl group-hover:bg-fuchsia-500/10 transition-all duration-500"></div>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-slate-400">Nabız</span>
-                    <div className="w-10 h-10 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400">
-                      <svg className="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                      </svg>
-                    </div>
+              <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
+                Güvenilir Döşeme, Dürüst Hizmet. Her Zaman.
+              </h2>
+
+              <p className="text-sm text-outline leading-relaxed font-light">
+                Vitaly Concept, 20 yılı aşkın tecrübesiyle seramik sektöründe fark yaratmaya devam ediyor. Estetik, fonksiyonellik ve kaliteyi bir araya getirerek, yaşam alanlarınıza modern ve estetik dokunuşlar katıyoruz.
+              </p>
+
+              {/* Checklist styled as requested in wireframe */}
+              <div className="space-y-3 pt-2">
+                {[
+                  'Kurumsal ve yenilikçi yaklaşım – Sektör tecrübemizi modern tasarımla buluşturuyoruz.',
+                  'Zengin ürün yelpazesi – Seramikten banyo dolaplarına kadar geniş seçenekler.',
+                  'Profesyonel ve güler yüzlü ekip – Satış öncesi ve sonrası tam müşteri desteği.'
+                ].map((text, idx) => (
+                  <div key={idx} className="flex gap-3 items-start">
+                    <span className="text-primary font-bold">✔</span>
+                    <span className="text-xs text-obsidian font-semibold">{text}</span>
                   </div>
-
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-['Outfit'] font-bold text-4xl text-slate-100 tracking-tight">
-                      {heartRate}
-                    </span>
-                    <span className="text-xs font-semibold text-slate-400">BPM</span>
-                  </div>
-
-                  <div className="mt-4 flex items-center gap-2">
-                    <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
-                      Normal
-                    </span>
-                    <span className="text-xs text-slate-400">Dinlenme halindeki nabız</span>
-                  </div>
-                </div>
-
-                {/* Steps/Activity Card */}
-                <div className="relative overflow-hidden bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-6 backdrop-blur-xl group hover:border-cyan-500/30 transition-all duration-500">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all duration-500"></div>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-slate-400">Adım Sayısı</span>
-                    <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-['Outfit'] font-bold text-4xl text-slate-100 tracking-tight">
-                      7,842
-                    </span>
-                    <span className="text-xs font-semibold text-slate-400">/ 10,000 Adım</span>
-                  </div>
-
-                  <div className="mt-4">
-                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full" style={{ width: '78%' }}></div>
-                    </div>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-xs text-slate-400">Kalan: 2,158 adım</span>
-                      <span className="text-xs font-bold text-cyan-400">78%</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sleep Cycles Card */}
-                <div className="relative overflow-hidden bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-6 backdrop-blur-xl group hover:border-indigo-500/30 transition-all duration-500">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-all duration-500"></div>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-slate-400">Uyku Kalitesi</span>
-                    <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-['Outfit'] font-bold text-4xl text-slate-100 tracking-tight">
-                      7s 45dk
-                    </span>
-                    <span className="text-xs font-semibold text-slate-400">Derin Uyku</span>
-                  </div>
-
-                  <div className="mt-4 flex items-center gap-2">
-                    <span className="text-xs px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-medium">
-                      %88 Verimlilik
-                    </span>
-                    <span className="text-xs text-slate-400">Dün geceye göre daha iyi</span>
-                  </div>
-                </div>
-
-                {/* Calorie Burn Card */}
-                <div className="relative overflow-hidden bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-6 backdrop-blur-xl group hover:border-orange-500/30 transition-all duration-500">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl group-hover:bg-orange-500/10 transition-all duration-500"></div>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-slate-400">Yakılan Kalori</span>
-                    <div className="w-10 h-10 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-['Outfit'] font-bold text-4xl text-slate-100 tracking-tight">
-                      420
-                    </span>
-                    <span className="text-xs font-semibold text-slate-400">Kcal</span>
-                  </div>
-
-                  <div className="mt-4">
-                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-orange-400 to-amber-500 rounded-full" style={{ width: '60%' }}></div>
-                    </div>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-xs text-slate-400">Hedef: 700 Kcal</span>
-                      <span className="text-xs font-bold text-orange-400">60%</span>
-                    </div>
-                  </div>
-                </div>
-
+                ))}
               </div>
 
-              {/* Water Hydration Tracker (Interactive UI) */}
-              <div className="relative overflow-hidden bg-gradient-to-br from-[#0d0c1e]/40 to-[#12102f]/40 border border-white/5 rounded-3xl p-6 md:p-8 backdrop-blur-xl">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl"></div>
-                
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                  <div className="space-y-4 text-center md:text-left">
-                    <div>
-                      <h3 className="font-['Outfit'] font-bold text-xl text-slate-100">
-                        Sıvı Tüketimi Takibi
-                      </h3>
-                      <p className="text-sm text-slate-400 mt-1">
-                        Sağlıklı kalmak ve enerjinizi korumak için gün boyunca su tüketin.
-                      </p>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-                      <button
-                        id="btn-add-water"
-                        onClick={() => setWaterCount(prev => Math.min(waterGoal, prev + 1))}
-                        disabled={waterCount >= waterGoal}
-                        className="bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 disabled:cursor-not-allowed text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-blue-500/10 active:scale-95 transition-all duration-300"
-                      >
-                        + 250ml Su Ekle
-                      </button>
-                      <button
-                        id="btn-reset-water"
-                        onClick={() => setWaterCount(0)}
-                        className="bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold px-4 py-2.5 rounded-xl border border-white/5 transition-all duration-300"
-                      >
-                        Sıfırla
-                      </button>
-                    </div>
-
-                    <div className="text-xs text-slate-400">
-                      Günlük Hedef: <span className="font-bold text-slate-200">8 Bardak (2 Litre)</span>
-                    </div>
-                  </div>
-
-                  {/* Water Visual progress Indicator */}
-                  <div className="relative flex flex-col items-center">
-                    <div className="w-24 h-36 border-4 border-blue-400/40 rounded-b-3xl rounded-t-lg relative overflow-hidden bg-[#0d0c1e] shadow-inner">
-                      
-                      {/* Animated Water Body */}
-                      <div 
-                        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-blue-600 to-cyan-400 transition-all duration-500 ease-out" 
-                        style={{ height: `${waterProgress}%` }}
-                      >
-                        {/* Bubble particle effect */}
-                        {waterProgress > 0 && (
-                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.2),transparent_60%)] animate-pulse"></div>
-                        )}
-                      </div>
-
-                      {/* Measurement Ticks */}
-                      <div className="absolute inset-y-0 right-2 flex flex-col justify-between py-4 text-[9px] font-bold text-slate-500 select-none">
-                        <span>8</span>
-                        <span>6</span>
-                        <span>4</span>
-                        <span>2</span>
-                      </div>
-                    </div>
-                    
-                    <span className="font-['Outfit'] font-bold text-lg text-blue-400 mt-3">
-                      {waterCount} / {waterGoal} Bardak
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Right Column: Score & Goals */}
-            <div className="space-y-8">
-              
-              {/* Wellness Score Card */}
-              <div className="relative overflow-hidden bg-gradient-to-b from-[#1b1235]/40 to-[#0d0c1e]/40 border border-white/5 rounded-3xl p-6 backdrop-blur-xl text-center">
-                <div className="absolute -top-12 -left-12 w-32 h-32 bg-fuchsia-500/10 rounded-full blur-2xl"></div>
-                <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
-
-                <h3 className="font-['Outfit'] font-bold text-lg text-slate-300 mb-6">
-                  Zindelik Skoru
-                </h3>
-
-                {/* Score Circular Progress SVG */}
-                <div className="relative w-40 h-40 mx-auto flex items-center justify-center">
-                  <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                    {/* Background circle */}
-                    <circle 
-                      cx="50" 
-                      cy="50" 
-                      r="42" 
-                      className="stroke-white/5" 
-                      strokeWidth="8" 
-                      fill="transparent" 
-                    />
-                    {/* Foreground glow ring */}
-                    <circle 
-                      cx="50" 
-                      cy="50" 
-                      r="42" 
-                      className="stroke-fuchsia-500/20 blur-[2px]" 
-                      strokeWidth="8" 
-                      fill="transparent" 
-                      strokeDasharray={263.89}
-                      strokeDashoffset={263.89 - (263.89 * score) / 100}
-                    />
-                    {/* Foreground active ring */}
-                    <circle 
-                      cx="50" 
-                      cy="50" 
-                      r="42" 
-                      className="stroke-url(#scoreGradient)" 
-                      strokeWidth="8" 
-                      fill="transparent" 
-                      strokeDasharray={263.89}
-                      strokeDashoffset={263.89 - (263.89 * score) / 100}
-                      strokeLinecap="round"
-                    />
-                    
-                    <defs>
-                      <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f50057" />
-                        <stop offset="50%" stopColor="#7c4dff" />
-                        <stop offset="100%" stopColor="#00e5ff" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  
-                  <div className="absolute flex flex-col items-center">
-                    <span className="font-['Outfit'] font-extrabold text-4xl text-white tracking-tight">
-                      {score}%
-                    </span>
-                    <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">
-                      Harika
-                    </span>
-                  </div>
-                </div>
-
-                <p className="text-xs text-slate-400 mt-6 max-w-[240px] mx-auto leading-relaxed">
-                  Hedefleri tamamlayarak ve su içerek zindelik skorunuzu artırın.
+              <div className="pt-4 border-t border-obsidian/10 space-y-4">
+                <h4 className="font-display text-lg text-obsidian">Neden Vitaly Concept'e Güveniyorlar?</h4>
+                <p className="text-xs text-outline leading-relaxed">
+                  Güçlü stok ve tedarik ağımız sayesinde projelerinizi aksatmadan, hızlı ve güvenilir teslimat garantisi sunuyoruz. Bursa’nın yanı sıra Fransa ve Almanya gibi uluslararası pazarlarda da kalitemizi kanıtlayarak, müşteri memnuniyetini en üst seviyeye taşıyoruz.
                 </p>
               </div>
 
-              {/* Goals list */}
-              <div className="relative overflow-hidden bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-6 backdrop-blur-xl">
-                <h3 className="font-['Outfit'] font-bold text-lg text-slate-200 mb-4">
-                  Bugünün Hedefleri
-                </h3>
+              <div className="pt-4">
+                <a 
+                  href="#contact" 
+                  className="inline-block bg-obsidian hover:bg-primary text-white text-[10px] uppercase tracking-[0.15em] font-bold px-8 py-3.5 transition-all duration-300"
+                >
+                  Hakkımızda Daha Fazla
+                </a>
+              </div>
+            </div>
 
-                <div className="space-y-3">
-                  {goals.map(goal => (
-                    <div 
-                      key={goal.id} 
-                      onClick={() => toggleGoal(goal.id)}
-                      className={`flex items-center gap-3 p-3.5 rounded-2xl border cursor-pointer select-none transition-all duration-300 ${
-                        goal.completed 
-                          ? 'bg-fuchsia-500/5 border-fuchsia-500/20 text-slate-300' 
-                          : 'bg-white/5 border-white/5 text-slate-400 hover:bg-white/[0.08] hover:border-white/10'
-                      }`}
-                    >
-                      <div className={`w-5.5 h-5.5 rounded-lg flex items-center justify-center transition-all duration-300 border ${
-                        goal.completed 
-                          ? 'bg-fuchsia-500 border-fuchsia-500 text-white' 
-                          : 'border-slate-500 bg-transparent'
-                      }`}>
-                        {goal.completed && (
-                          <svg className="w-3.5 h-3.5 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
-                        )}
-                      </div>
-                      
-                      <span className={`text-sm font-medium ${goal.completed ? 'line-through opacity-60' : ''}`}>
-                        {goal.text}
-                      </span>
-                      
-                      <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded bg-white/5 text-slate-400">
-                        +{goal.value} Puan
-                      </span>
-                    </div>
-                  ))}
+            {/* Right Image Display with overlays */}
+            <div className="lg:col-span-5 relative">
+              <div className="border border-obsidian/10 overflow-hidden relative aspect-[4/5]">
+                <img 
+                  src={showroomBath} 
+                  alt="Vitaly Showroom" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/30 to-transparent"></div>
+              </div>
+              
+              {/* Badge Overlaid */}
+              <div className="absolute top-6 left-6 bg-primary border border-white/10 text-white px-5 py-4 shadow-lg text-center">
+                <span className="block font-display text-2xl font-bold">20+</span>
+                <span className="block text-[8px] uppercase tracking-[0.1em] font-bold">Yıllık Tecrübe</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Category Grid Section (Size Uygun Seramik Çözümleri...) */}
+      <section id="categories" className="py-20 border-t border-obsidian/10 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center space-y-12">
+          
+          <div className="max-w-2xl mx-auto space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-primary font-bold">KOLEKSİYONLARIMIZ</span>
+            <h2 className="font-display text-3xl text-obsidian">
+              Size Uygun Seramik & Tasarım Çözümünü Bulun.
+            </h2>
+            <p className="text-xs text-outline max-w-lg mx-auto">
+              Geniş ve ferah showroomumuzda, her bütçeye ve tarza uygun zengin seçenekler sunuyoruz.
+            </p>
+          </div>
+
+          {/* 6 Category Grid Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { title: 'Salon Seramikleri', img: heroBg, desc: 'Lüks porselen ve mermer efektli plakalar.' },
+              { title: 'Banyo & Vitrifiye', img: showroomBath, desc: 'Şık armatürler, bataryalar ve klozet sistemleri.' },
+              { title: 'Mutfak Seramikleri', img: ceramicArt, desc: 'Tezgah arası ve zemin kaplama alternatifleri.' },
+              { title: 'Dış Mekan Porselen', img: heroBg, desc: 'Donmaya ve suya dayanıklı kalın zemin seramikleri.' },
+              { title: 'Yapı Kimyasalları', img: ceramicArt, desc: 'Profesyonel kalitede yapıştırıcı ve derzler.' },
+              { title: 'Banyo Mobilyaları', img: showroomBath, desc: 'Modern tasarımlı neme dayanıklı banyo dolapları.' }
+            ].map((cat, idx) => (
+              <div 
+                key={idx} 
+                className="bg-surface border border-obsidian/10 p-6 flex flex-col justify-between group hover:border-primary transition-all duration-300"
+              >
+                <div>
+                  <div className="aspect-[16/10] overflow-hidden border border-obsidian/5 mb-6">
+                    <img 
+                      src={cat.img} 
+                      alt={cat.title} 
+                      className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
+                    />
+                  </div>
+                  <h3 className="font-display font-bold text-lg text-obsidian mb-2 text-left">
+                    {cat.title}
+                  </h3>
+                  <p className="text-xs text-outline text-left leading-relaxed">
+                    {cat.desc}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between border-t border-obsidian/5 pt-4 mt-6">
+                  <a href="#contact" className="text-[10px] uppercase tracking-[0.1em] font-bold text-primary hover:text-primary-dark transition-colors flex items-center gap-1">
+                    İncele
+                  </a>
+                  <span className="text-obsidian group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-6">
+            <a 
+              href="#contact" 
+              className="inline-block bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-[0.15em] font-bold px-10 py-4 transition-all duration-300"
+            >
+              Tüm Ürünleri Gör
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Process Section (Çalışma Sürecimiz) */}
+      <section className="py-20 border-t border-obsidian/10 bg-surface">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 text-center space-y-12">
+          
+          <div className="space-y-2">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-primary font-bold">PROFESYONEL İŞ AKIŞI</span>
+            <h2 className="font-display text-3xl text-obsidian">Çalışma Sürecimiz</h2>
+            <p className="text-xs text-outline max-w-sm mx-auto">Projelerinizin hayata geçiş aşamaları</p>
+          </div>
+
+          {/* 4 Steps Container */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { id: '01', title: 'Planlama', desc: 'Tadilat öncesi doğru planlama, seramiklerle yenilenen yaşam alanı.' },
+              { id: '02', title: 'Seçim & Tasarım', desc: 'Showroomda bütçenize uygun zengin ürün alternatiflerinin tespiti.' },
+              { id: '03', title: 'Uygulama', desc: 'Ustalıkla uygulanan hayalleriniz, kusursuz montaj teknikleriyle gerçeğe dönüşüyor.' },
+              { id: '04', title: 'Teslim & Memnuniyet', desc: 'Tamamlanmış iş, mutlu müşterilerle teslim edilir. Memnuniyetiniz bizim başarımızdır.' }
+            ].map((step, idx) => (
+              <div key={idx} className="border border-obsidian/10 p-6 space-y-4 bg-surface-container-low hover:bg-surface transition-colors duration-300">
+                <div className="w-12 h-12 bg-primary flex items-center justify-center text-white font-bold font-display text-lg mx-auto">
+                  {step.id}
+                </div>
+                <h3 className="font-display font-bold text-base text-obsidian">{step.title}</h3>
+                <p className="text-xs text-outline leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* Projects Showcase (Son Dönemdeki Zemin Döşeme...) */}
+      <section id="references" className="py-20 border-t border-obsidian/10 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left large project preview */}
+            <div className="lg:col-span-7 border border-obsidian/10 overflow-hidden aspect-[16/10]">
+              <img 
+                src={heroBg} 
+                alt="Completed project design" 
+                className="w-full h-full object-cover hover:scale-103 transition-transform duration-75"
+              />
+            </div>
+
+            {/* Right content info */}
+            <div className="lg:col-span-5 space-y-6">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-primary font-bold block">REFERANSLARIMIZ</span>
+              
+              <h2 className="font-display text-3xl text-obsidian leading-tight">
+                Son Dönemdeki Seramik Kaplama Projelerimiz Ve İyileştirmelerimiz.
+              </h2>
+              
+              <p className="text-sm text-outline leading-relaxed font-light">
+                Bursa Nilüfer'de uyguladığımız modern konut projesinde Gold Calacatta ve River Full Lappato serileriyle şıklığı ve dayanıklılığı bir araya getirdik. Fransa ve Almanya'ya gerçekleştirdiğimiz ihracatlarla kalitemizi küresel boyuta taşıdık.
+              </p>
+
+              <div className="pt-2">
+                <a 
+                  href="#contact" 
+                  className="inline-block bg-obsidian hover:bg-primary text-white text-[10px] uppercase tracking-[0.15em] font-bold px-8 py-3.5 transition-all duration-300"
+                >
+                  Tüm Projeleri İncele
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Strong Banner Segment (En İyi Zemin Kaplama Şirketi...) */}
+      <section className="py-16 bg-obsidian text-surface border-y border-white/5 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left side text and CTA */}
+            <div className="lg:col-span-8 space-y-6">
+              <h2 className="font-display text-3xl sm:text-4xl text-white leading-tight">
+                En İyi Seramik Kaplama Şirketini Hak Ediyorsunuz
+              </h2>
+              <p className="text-xs text-slate-400 max-w-xl leading-relaxed font-light">
+                Vitaly Concept ile hayallerinizdeki mekanları gerçeğe dönüştürmek artık çok daha kolay! Kalite, estetik ve güvenilir hizmet anlayışımızla her zaman yanınızdayız.
+              </p>
+              <div className="pt-2">
+                <a 
+                  href="#contact" 
+                  className="inline-block bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-[0.15em] font-bold px-8 py-4 transition-all duration-300"
+                >
+                  Hemen İletişime Geçin
+                </a>
+              </div>
+            </div>
+
+            {/* Right side portrait display image */}
+            <div className="lg:col-span-4 border border-white/10 overflow-hidden aspect-[4/3] bg-dark-card">
+              <img 
+                src={ceramicArt} 
+                alt="Premium ceramic layout details" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof & Reviews (Müşterilerimizin Gözüyle...) */}
+      <section className="py-20 bg-surface">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+          
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-primary font-bold">MÜŞTERİ MEMNUNİYETİ</span>
+            <h2 className="font-display text-3xl text-obsidian">
+              Müşterilerimizin Gözüyle Biz
+            </h2>
+            <p className="text-xs text-outline">Geri bildirimler ve referans puanlarımız</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            {/* Testimonial Quote */}
+            <div className="lg:col-span-6 border border-obsidian/10 p-8 flex flex-col justify-between space-y-6 bg-surface-container-low">
+              <div className="text-primary font-display text-4xl leading-none">“</div>
+              <p className="text-sm text-obsidian italic leading-relaxed font-light">
+                "Vitaly Concept ekibi banyomuzu tamamen değiştirdi. Seramiklerin kalitesi ve uygulamanın kusursuzluğu bizi büyüledi. Fransa'daki projemizi tam zamanında ve eksiksiz teslim ettiler. Kesinlikle tavsiye ediyoruz!"
+              </p>
+              <div className="flex items-center justify-between border-t border-obsidian/10 pt-4">
+                <div>
+                  <h4 className="font-bold text-xs text-obsidian uppercase tracking-wider">Ahmet H.</h4>
+                  <span className="text-[10px] text-outline block">Müşteri / Fransa</span>
+                </div>
+                {/* 5 stars */}
+                <div className="flex text-amber-500 text-xs">★★★★★</div>
+              </div>
+            </div>
+
+            {/* Middle Image display */}
+            <div className="lg:col-span-3 border border-obsidian/10 overflow-hidden aspect-square lg:aspect-auto">
+              <img 
+                src={ceramicArt} 
+                alt="Ceramic tiles detailing" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Right side stats metrics */}
+            <div className="lg:col-span-3 flex flex-col justify-between gap-4">
+              <div className="border border-obsidian/10 p-6 text-center space-y-1 bg-surface-container-low flex-1 flex flex-col justify-center">
+                <span className="font-display text-3xl text-primary font-bold block">250+</span>
+                <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Tamamlanmış Proje</span>
+              </div>
+              
+              <div className="border border-obsidian/10 p-6 text-center space-y-2 bg-surface-container-low flex-1 flex flex-col justify-center">
+                <div className="flex items-center justify-center gap-1.5 text-xs">
+                  <span className="font-bold text-obsidian">Google</span>
+                  <div className="flex text-amber-500">★★★★★</div>
+                </div>
+                <span className="font-display text-2xl text-obsidian font-bold block">5.0 Star</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Social News Highlight */}
+          <div className="bg-surface-container-low border border-obsidian/10 p-6 flex flex-col md:flex-row items-center gap-6">
+            <div className="w-10 h-10 bg-primary/10 border border-primary/20 text-primary flex items-center justify-center font-bold">
+              i
+            </div>
+            <div>
+              <span className="text-[9px] font-bold text-primary uppercase tracking-widest block">SOSYAL MEDYA HABERİ</span>
+              <p className="text-xs text-obsidian mt-0.5 leading-relaxed font-light">
+                "Vahe ile Evdeki Mutluluk" programının misafiri olduk. Güzel bir banyo dönüşüm projesini seramiklerimizle şenlendirdik. Keyifli bir iş birliği oldu! 😊😎👍 #seramiksanati #vitalyconcept
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Appointment & Contact Form (Zemin Döşeme Hizmetinizi Bugün Ayarlayın!) */}
+      <section id="contact" className="py-20 border-t border-obsidian/10 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+            
+            {/* Left Information Panel */}
+            <div className="lg:col-span-5 border border-obsidian/10 bg-surface p-8 flex flex-col justify-between space-y-8">
+              <div className="space-y-6">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-primary font-bold block">BİZE ULAŞIN</span>
+                  <h3 className="font-display text-2xl text-obsidian mt-1">Seramik & Tasarım Hizmetinizi Bugün Ayarlayın!</h3>
+                  <p className="text-xs text-outline mt-2 leading-relaxed">
+                    Projeleriniz, siparişleriniz veya showroom ziyaretleriniz için bizimle irtibata geçebilirsiniz.
+                  </p>
+                </div>
+
+                <div className="space-y-4 pt-4 border-t border-obsidian/10">
+                  <div className="space-y-1">
+                    <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Adres</span>
+                    <p className="text-xs text-obsidian font-semibold">Ahmet Yesevi, Sanayi Cd. No:563/D, 16140 Nilüfer/Bursa</p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Telefon & İletişim</span>
+                    <a href="tel:+905330452886" className="block text-xs text-obsidian font-semibold hover:text-primary transition-colors">+90 533 045 28 86</a>
+                    <a href="tel:+905413587611" className="block text-xs text-obsidian font-semibold hover:text-primary transition-colors">+90 541 358 76 11</a>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">E-Posta</span>
+                    <a href="mailto:info@vitalyconcept.com" className="block text-xs text-obsidian font-semibold hover:text-primary transition-colors">info@vitalyconcept.com</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Instagram social statistics */}
+              <div className="border-t border-obsidian/10 pt-6">
+                <span className="text-[9px] uppercase tracking-[0.15em] text-primary font-bold block mb-3">INSTAGRAM AKTİVİTESİ</span>
+                <div className="flex gap-6 items-center">
+                  <div>
+                    <span className="block font-display text-xl text-obsidian font-bold">2.177</span>
+                    <span className="block text-[8px] uppercase text-outline font-bold">Takipçi</span>
+                  </div>
+                  <div>
+                    <span className="block font-display text-xl text-obsidian font-bold">272</span>
+                    <span className="block text-[8px] uppercase text-outline font-bold">Gönderi</span>
+                  </div>
+                  <a 
+                    href="https://www.instagram.com/vitalyconcept" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="text-[10px] uppercase font-bold text-obsidian border-b border-obsidian pb-0.5 hover:text-primary hover:border-primary ml-auto transition-all"
+                  >
+                    @vitalyconcept
+                  </a>
                 </div>
               </div>
 
             </div>
 
-          </div>
-        )}
+            {/* Right Appointment/Quote Form (Libre-Style Input fields) */}
+            <div className="lg:col-span-7 border border-obsidian/10 bg-surface p-8 flex flex-col justify-between">
+              
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <h3 className="font-display text-xl text-obsidian">Ücretsiz Fiyat Teklifi Alın</h3>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div className="flex flex-col space-y-1">
+                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Adınız Soyadınız *</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Örn: Ahmet Yesevi"
+                      className="bg-transparent border-b border-outline/30 focus:border-obsidian text-sm py-2 px-1 focus:outline-none transition-all placeholder-slate-400"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1">
+                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Telefon Numaranız *</label>
+                    <input 
+                      type="tel" 
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="Örn: 0533 000 00 00"
+                      className="bg-transparent border-b border-outline/30 focus:border-obsidian text-sm py-2 px-1 focus:outline-none transition-all placeholder-slate-400"
+                    />
+                  </div>
+                </div>
 
-        {activeTab === 'analytics' && (
-          <div className="bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-8 backdrop-blur-xl flex flex-col items-center justify-center py-20">
-            <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4 animate-bounce">
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div className="flex flex-col space-y-1">
+                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">E-Posta Adresiniz</label>
+                    <input 
+                      type="email" 
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="Örn: info@example.com"
+                      className="bg-transparent border-b border-outline/30 focus:border-obsidian text-sm py-2 px-1 focus:outline-none transition-all placeholder-slate-400"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1">
+                    <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Hizmet Türü</label>
+                    <select
+                      value={formData.service}
+                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                      className="bg-transparent border-b border-outline/30 focus:border-obsidian text-sm py-2 px-1 focus:outline-none transition-all cursor-pointer text-slate-800"
+                    >
+                      <option value="Planlama">Planlama & Tasarım</option>
+                      <option value="Uygulama">Seramik Uygulama & Tadilat</option>
+                      <option value="Showroom">Showroom Ürün Seçimi</option>
+                      <option value="Toptan">Toptan Tedarik & İhracat</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex flex-col space-y-1">
+                  <label className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Mesajınız / Projeniz</label>
+                  <textarea 
+                    rows="3"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Lütfen projenizin detaylarından veya isteklerinizden bahsedin..."
+                    className="bg-transparent border-b border-outline/30 focus:border-obsidian text-sm py-2 px-1 focus:outline-none transition-all resize-none placeholder-slate-400"
+                  ></textarea>
+                </div>
+
+                {formSubmitted ? (
+                  <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs font-bold py-4 text-center">
+                    Mesajınız ve teklif talebiniz başarıyla iletildi. En kısa sürede sizinle irtibata geçeceğiz.
+                  </div>
+                ) : (
+                  <button 
+                    type="submit" 
+                    className="w-full bg-primary hover:bg-primary-dark text-white text-xs uppercase tracking-[0.15em] font-bold py-4 transition-all duration-300 shadow-md hover:shadow-lg"
+                  >
+                    TEKLİF TALEBİ GÖNDER
+                  </button>
+                )}
+              </form>
+
             </div>
-            <h3 className="font-['Outfit'] font-bold text-xl text-slate-100">Gelişmiş Analizler</h3>
-            <p className="text-sm text-slate-400 mt-2 max-w-sm text-center">
-              Zindelik verilerinizin haftalık ve aylık trend analizleri çok yakında burada olacak.
+
+          </div>
+        </div>
+      </section>
+
+      {/* Footer in Obsidian */}
+      <footer className="bg-[#0f1011] text-surface-container-high py-16 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-start gap-12">
+          
+          <div className="space-y-4 max-w-sm">
+            <h4 className="font-display text-white text-xl tracking-wider uppercase">VITALY CONCEPT</h4>
+            <p className="text-xs text-slate-400 leading-relaxed font-light">
+              20 yılı aşkın tecrübesiyle seramik, vitrifiye ve yapı kimyasalları sektöründe Bursa'dan Avrupa'ya uzanan tasarım ve güven adresi.
             </p>
           </div>
-        )}
 
-        {activeTab === 'settings' && (
-          <div className="bg-[#0d0c1e]/40 border border-white/5 rounded-3xl p-8 backdrop-blur-xl">
-            <h3 className="font-['Outfit'] font-bold text-xl text-slate-100 mb-6">Ayarlar</h3>
-            
-            <div className="space-y-6 max-w-md">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Kullanıcı Adı</label>
-                <input 
-                  type="text" 
-                  defaultValue={userName} 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 transition-all duration-300"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block font-['Outfit']">Günlük Su Hedefi (Bardak)</label>
-                <input 
-                  type="number" 
-                  defaultValue={waterGoal} 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-fuchsia-500 transition-all duration-300"
-                />
-              </div>
-
-              <button className="bg-gradient-to-r from-fuchsia-500 to-indigo-500 hover:from-fuchsia-600 hover:to-indigo-600 text-white font-bold text-sm px-6 py-3 rounded-xl transition-all duration-300">
-                Ayarları Kaydet
-              </button>
+          <div className="space-y-4">
+            <h5 className="text-[10px] uppercase tracking-[0.15em] text-white font-bold">Hızlı Bağlantılar</h5>
+            <div className="flex flex-col gap-2 text-xs text-slate-400">
+              <a href="#home" className="hover:text-primary transition-colors">Anasayfa</a>
+              <a href="#about" className="hover:text-primary transition-colors">Kurumsal</a>
+              <a href="#categories" className="hover:text-primary transition-colors">Koleksiyonlar</a>
+              <a href="#references" className="hover:text-primary transition-colors">Referanslar</a>
+              <a href="#contact" className="hover:text-primary transition-colors">İletişim</a>
             </div>
           </div>
-        )}
 
-      </main>
+          <div className="space-y-4 text-xs text-slate-400">
+            <h5 className="text-[10px] uppercase tracking-[0.15em] text-white font-bold">Showroom İletişim</h5>
+            <p>Ahmet Yesevi, Sanayi Cd. No:563/D, 16140 Nilüfer/Bursa</p>
+            <p>Tel: +90 533 045 28 86 • info@vitalyconcept.com</p>
+          </div>
+
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 md:px-12 border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between text-[10px] text-slate-500">
+          <span>Vitaly Concept © {new Date().getFullYear()}. Tüm Hakları Saklıdır.</span>
+          <span>Bursa, Türkiye.</span>
+        </div>
+      </footer>
 
     </div>
   )

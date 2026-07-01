@@ -1,1 +1,81 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #C5A059; /* Brand Bronze */
+  --color-primary-dark: #775A19;
+  --color-primary-container: #c5a059;
+  --color-on-primary: #ffffff;
+  
+  --color-obsidian: #1A1A1A; /* Obsidian */
+  --color-on-surface: #1a1c1c;
+  --color-surface: #f9f9f9;
+  --color-surface-dim: #dadada;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+
+  --color-outline: #7f7667;
+  --color-outline-variant: #d1c5b4;
+
+  --font-display: "Libre Caslon Text", serif;
+  --font-sans: "Manrope", sans-serif;
+}
+
+/* Custom Base Rules for Sharp Theme */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #f9f9f9;
+    color: #1a1c1c;
+  }
+  
+  /* Force sharp corners on everything in the application */
+  *, *::before, *::after {
+    border-radius: 0px !important;
+  }
+  
+  /* Heading sizes matching typography guidelines */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+  
+  p, span, a, button, input, textarea, select, label {
+    font-family: var(--font-sans);
+  }
+
+  /* Custom scrollbar and glass effects */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f9f9f9;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #dadada;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C5A059;
+  }
+}
+
+/* Custom layout helper */
+.container-max {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .container-max {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
