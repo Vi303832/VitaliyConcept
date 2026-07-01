@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedButton from './components/AnimatedButton'
 import HeroSlider from './components/HeroSlider'
 import MediaEmbed from './components/MediaEmbed'
@@ -20,7 +20,9 @@ import {
   Wrench, 
   Truck, 
   ShieldCheck, 
-  Award 
+  Award,
+  Menu,
+  X
 } from 'lucide-react'
 
 const NAV_LINKS = [
