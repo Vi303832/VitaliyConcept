@@ -104,6 +104,27 @@ const REFERENCE_PROJECTS = [
   }
 ]
 
+const REVIEWS = [
+  {
+    name: 'Ahmet H.',
+    role: 'Müşteri / Fransa',
+    avatar: '/img/mekan_lava.jpg',
+    text: 'Vitaly Concept banyo tasarımımızı tamamen yeniledi. Showroomda gösterdikleri profesyonel ilgi ve seramiklerin malzeme kalitesi gerçekten üst düzey. Fransa\'ya lojistik sevk süreçleri de kusursuzdu.'
+  },
+  {
+    name: 'Mehmet T.',
+    role: 'Mimar / Bursa',
+    avatar: '/img/mekan_river.jpg',
+    text: 'Projelerimizde aradığımız ebat ve estetiği Vitaly Concept\'te bulabiliyoruz. Güçlü stokları ve zamanında teslimatları sayesinde Nilüfer\'deki villa şantiyemizi aksatmadan tamamladık.'
+  },
+  {
+    name: 'Sophia K.',
+    role: 'Müşteri / Almanya',
+    avatar: '/img/mekan_calacata marmi.jpg',
+    text: 'Showroom kalitesini evimize taşıdık. Gold Calacatta ve Sagano seramiklerin kalitesi tek kelimeyle harika. Satış öncesi ve sonrası verdikleri danışmanlık hizmeti için teşekkür ederiz.'
+  }
+]
+
 const FOOTER_SERVICES = [
   'Salon & Antre Seramikleri',
   'Lüks Vitrifiye & Armatür',
@@ -220,6 +241,7 @@ function App() {
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeProj, setActiveProj] = useState(2)
+  const [activeReview, setActiveReview] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -620,95 +642,174 @@ function App() {
         </div>
       </section>
 
-      {/* Banner CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-primary-fixed/40 via-surface-container to-primary/15 border-y border-obsidian/10">
-        <div className="container-max py-16 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                Yaşam Alanlarınızda En İyi Tasarımı Hak Ediyorsunuz
+      {/* Banner CTA - Rounded Card & Cutout Overlap Redesign */}
+      <section className="relative overflow-visible py-12 md:py-24 bg-surface">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-12">
+          
+          {/* Rounded Background Card with wood-tile texture */}
+          <div 
+            className="absolute inset-x-6 md:inset-x-12 top-0 bottom-0 rounded-[32px] border border-obsidian/10 overflow-hidden" 
+            style={{ 
+              backgroundImage: "url('/img/904303_sagano ceviz_30x120.jpg')", 
+              backgroundSize: 'cover', 
+              backgroundPosition: 'center' 
+            }}
+          >
+            {/* Gradient Overlay matching project dark Obsidian brand identity */}
+            <div className="absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/90 to-obsidian/10"></div>
+          </div>
+
+          {/* Content grid with visible overflow */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center px-12 md:px-24 py-12 md:py-16 min-h-[320px] relative">
+            
+            {/* Left Column (Text & Button) */}
+            <div className="md:col-span-7 space-y-6 text-left text-white z-10">
+              <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-[40px] text-white leading-[1.1] tracking-tight">
+                Yaşam Alanlarınızda En İyi
+                <br />
+                Tasarımı Hak Ediyorsunuz
               </h2>
-              <p className="text-sm text-outline max-w-xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed font-light">
                 Vitaly Concept ile hayallerinizdeki mekanları estetikle buluşturmak artık çok daha kolay.
                 Geniş showroomumuz ve profesyonel ekibimizle projeleriniz için yanınızdayız.
               </p>
-              <AnimatedButton href="#contact">
-                Hemen İletişime Geçin
-              </AnimatedButton>
-            </div>
-
-            <div className="lg:col-span-5 relative lg:-mr-8">
-              <div className="aspect-[4/5] max-w-sm mx-auto lg:ml-auto overflow-hidden border border-obsidian/10">
-                <img src={showroomBath} alt="Vitaly Concept uzman ekibi" className="w-full h-full object-cover object-top" />
+              <div className="pt-2">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-4 bg-surface/10 hover:bg-primary border border-white/10 text-white text-[10px] uppercase tracking-[0.15em] font-bold pl-6 pr-2 py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
+                >
+                  <span>Hemen İletişime Geçin</span>
+                  <span className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white shrink-0 text-xs">
+                    ↗
+                  </span>
+                </a>
               </div>
             </div>
+
+            {/* Right Column Spacer for grid spacing */}
+            <div className="hidden md:block md:col-span-5 h-[200px]" />
+            
           </div>
+
+          {/* Absolute Cutout image positioned relative to the card bounds (aligns bottom, extends top) */}
+          <img 
+            src="/img/showroom_manager.png" 
+            alt="Vitaly Concept uzman ekibi" 
+            className="absolute bottom-0 right-12 md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20"
+          />
+
         </div>
       </section>
 
-      {/* Reviews */}
-      <section className="py-20 bg-surface">
-        <div className="container-max space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="section-label block">Müşteri Memnuniyeti</span>
-            <h2 className="font-display text-3xl sm:text-4xl text-obsidian">
-              Müşterilerimizin Gözüyle Biz
+      {/* Reviews - Custom Grid & Slider Redesign */}
+      <section className="py-20 bg-surface border-t border-obsidian/10">
+        <div className="container-max">
+          
+          {/* Left-aligned editorial header */}
+          <div className="max-w-3xl mb-12">
+            <span className="section-label block mb-2">Müşteri Memnuniyeti</span>
+            <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-[42px] text-obsidian leading-[1.1] tracking-tight text-left">
+              Müşterilerimizin Gözüyle
+              <br />
+              Vitaly Concept Deneyimi!
             </h2>
-            <p className="text-sm text-outline">Geri bildirimler ve referans puanlarımız</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-5 border border-obsidian/10 bg-surface-container-low p-8 flex flex-col justify-between space-y-6">
-              <div className="font-display text-5xl text-primary leading-none">"</div>
-              <p className="text-sm text-obsidian leading-relaxed italic">
-                Vitaly Concept banyo tasarımımızı tamamen yeniledi. Showroomda gösterdikleri profesyonel ilgi ve
-                seramiklerin malzeme kalitesi gerçekten üst düzey. Fransa'ya lojistik sevk süreçleri de kusursuzdu.
-              </p>
-              <div className="flex items-center justify-between border-t border-obsidian/10 pt-5">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            {/* Left Testimonial Card Slider - Fixed Height */}
+            <div className="lg:col-span-5 border border-obsidian/10 bg-surface-container-low p-8 md:p-10 flex flex-col justify-between rounded-[24px] shadow-sm relative h-[380px] sm:h-[424px]">
+              
+              {/* Bronze Quote mark */}
+              <div className="font-sans text-6xl text-primary leading-none select-none">“</div>
+              
+              {/* Dynamic Review Text with smooth transition */}
+              <div className="flex-grow flex items-center">
+                <p className="text-sm md:text-base text-obsidian leading-relaxed italic font-light">
+                  "{REVIEWS[activeReview].text}"
+                </p>
+              </div>
+
+              {/* Bottom profile and controls */}
+              <div className="flex items-center justify-between border-t border-obsidian/10 pt-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full border border-primary/30 bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    {/* User profile placeholder icon */}
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-obsidian uppercase tracking-wider">{REVIEWS[activeReview].name}</h4>
+                    <span className="text-[10px] text-outline block mt-0.5">{REVIEWS[activeReview].role}</span>
+                  </div>
+                </div>
+
+                {/* Slider Navigation Buttons */}
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setActiveReview(prev => (prev > 0 ? prev - 1 : REVIEWS.length - 1))}
+                    className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90"
+                    aria-label="Önceki Yorum"
+                  >
+                    ←
+                  </button>
+                  <button 
+                    onClick={() => setActiveReview(prev => (prev < REVIEWS.length - 1 ? prev + 1 : 0))}
+                    className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90"
+                    aria-label="Sonraki Yorum"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right side: 2x2 Grid - Fixed heights aligning with the left card */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              
+              {/* Card 1: Top-Left Image */}
+              <div className="border border-obsidian/10 overflow-hidden rounded-[24px] h-[200px]">
+                <img src="/img/mekan_river.jpg" alt="River seramik kaplama salon" className="w-full h-full object-cover" />
+              </div>
+
+              {/* Card 2: Top-Right Stats Card */}
+              <div className="border border-obsidian/10 bg-surface-container-low p-6 flex flex-col justify-center items-center text-center rounded-[24px] h-[200px] space-y-3">
+                {/* Bronze custom vector tree/decor matching screenshot */}
+                <svg className="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M12 2L9 7h6L12 2zM12 7l-4 6h8l-4-6zM12 13l-5 7h10l-5-7zM12 20v2" />
+                </svg>
                 <div>
-                  <h4 className="font-bold text-xs text-obsidian uppercase tracking-wider">Ahmet H.</h4>
-                  <span className="text-[10px] text-outline">Müşteri / Fransa</span>
+                  <span className="font-sans font-extrabold text-4xl text-obsidian tracking-tight block">250+</span>
+                  <span className="text-[10px] uppercase tracking-[0.1em] text-outline font-bold mt-1 block">Tamamlanan Proje</span>
                 </div>
-                <StarRating />
               </div>
-            </div>
 
-            <div className="lg:col-span-7 grid grid-cols-2 gap-4">
-              <div className="col-span-1 border border-obsidian/10 bg-surface-container-low p-6 flex flex-col justify-center items-center text-center space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-obsidian">
-                  <span>Google</span>
-                  <StarRating />
+              {/* Card 3: Bottom-Left Google Review Card */}
+              <div className="border border-obsidian/10 bg-surface-container-low p-6 flex flex-col justify-center items-center text-center rounded-[24px] h-[200px] space-y-2">
+                {/* Google Logo SVG */}
+                <svg className="w-6 h-6" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22c-.87-2.6-2.87-4.53-6.16-4.53z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                </svg>
+                <div className="flex items-center gap-1.5 justify-center">
+                  <span className="font-sans font-extrabold text-3xl text-obsidian tracking-tight">5.0</span>
+                  <span className="text-amber-500 text-lg">★</span>
                 </div>
-                <span className="font-display text-3xl text-obsidian font-bold">5.0</span>
-                <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Yıldız Puanı</span>
+                <span className="text-[10px] uppercase tracking-[0.1em] text-outline font-bold block">Google Yorumları</span>
               </div>
 
-              <div className="col-span-1 border border-obsidian/10 bg-surface-container-low p-6 flex flex-col justify-center items-center text-center space-y-1">
-                <span className="font-display text-3xl text-primary font-bold">250+</span>
-                <span className="text-[9px] uppercase tracking-[0.1em] text-outline font-bold">Tamamlanmış Proje</span>
+              {/* Card 4: Bottom-Right Image */}
+              <div className="border border-obsidian/10 overflow-hidden rounded-[24px] h-[200px]">
+                <img src="/img/mekan_calacata marmi.jpg" alt="Calacatta Marmi seramik hol" className="w-full h-full object-cover" />
               </div>
 
-              <div className="col-span-1 aspect-square overflow-hidden border border-obsidian/10">
-                <img src={ceramicArt} alt="Seramik detay" className="w-full h-full object-cover" />
-              </div>
-
-              <div className="col-span-1 aspect-square overflow-hidden border border-obsidian/10">
-                <img src={heroBg} alt="Proje görünümü" className="w-full h-full object-cover" />
-              </div>
             </div>
-          </div>
 
-          <div className="border border-obsidian/10 bg-surface-container-low p-6 flex flex-col md:flex-row items-start md:items-center gap-5">
-            <div className="w-10 h-10 shrink-0 border border-primary/30 bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">
-              i
-            </div>
-            <div>
-              <span className="text-[9px] font-bold text-primary uppercase tracking-widest block">Sosyal Medya Haberi</span>
-              <p className="text-xs text-obsidian mt-1 leading-relaxed">
-                "Vahe ile Evdeki Mutluluk" programının misafiri olduk. Güzel bir banyo dönüşüm projesini seramiklerimizle
-                şenlendirdik. Keyifli bir iş birliği oldu! #seramiksanati #vitalyconcept
-              </p>
-            </div>
           </div>
         </div>
       </section>
