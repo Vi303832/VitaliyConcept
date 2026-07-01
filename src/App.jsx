@@ -10,8 +10,8 @@ import heroImg from './assets/hero.png'
 const NAV_LINKS = [
   { href: '#home', label: 'Anasayfa' },
   { href: '#about', label: 'Kurumsal' },
-  { href: '#categories', label: 'Ürünler' },
-  { href: '#references', label: 'Referanslar' },
+  { href: '#categories', label: 'Koleksiyonlar' },
+  { href: '#references', label: 'Ürünlerimiz' },
   { href: '#contact', label: 'İletişim' },
 ]
 
@@ -44,39 +44,103 @@ const TRUST_POINTS = [
 ]
 
 const FEATURE_ICONS = [
-  { icon: 'craft', title: 'Kaliteli İşçilik', desc: 'Ustalıkla uygulanan kusursuz montaj' },
-  { icon: 'delivery', title: 'Zamanında Teslimat', desc: 'Güçlü stok ve tedarik ağı' },
-  { icon: 'team', title: 'Uzman Ekip', desc: '20+ yıllık sektör deneyimi' },
-  { icon: 'warranty', title: 'Garantili Hizmet', desc: 'Satış öncesi ve sonrası destek' },
+  { icon: 'team', title: 'Kurumsal Tecrübe', desc: 'Sektör birikimini modern tasarımla buluşturuyoruz' },
+  { icon: 'warranty', title: 'Geniş Ürün Gamı', desc: 'Seramikten vitrifiye ve banyo dolaplarına seçenekler' },
+  { icon: 'delivery', title: 'Güçlü Stok ve Sevk', desc: 'Projelerinizi aksatmadan zamanında teslim ediyoruz' },
+  { icon: 'craft', title: 'Kişiye Özel Çözüm', desc: 'Her müşteriye özel fiyatlandırma ve danışmanlık' },
 ]
 
 const CATEGORIES = [
-  { title: 'Salon Seramikleri', img: heroBg },
-  { title: 'Banyo & Vitrifiye', img: showroomBath },
-  { title: 'Mutfak Seramikleri', img: ceramicArt },
-  { title: 'Dış Mekan Porselen', img: heroBg },
-  { title: 'Yapı Kimyasalları', img: ceramicArt },
-  { title: 'Banyo Mobilyaları', img: showroomBath },
+  { title: 'Salon & Antre Seramikleri', img: heroBg },
+  { title: 'Lüks Vitrifiye & Armatür', img: showroomBath },
+  { title: 'Mutfak & Tezgah Arası', img: ceramicArt },
+  { title: 'Dış Mekan & Teras Porselen', img: heroBg },
+  { title: 'Yapı Kimyasalları & Derz', img: ceramicArt },
+  { title: 'Özel Tasarım Banyo Mobilyası', img: showroomBath },
 ]
 
 const PROCESS_STEPS = [
-  { id: '01', title: 'Keşif ve Planlama', desc: 'Tadilat öncesi doğru planlama, seramiklerle yenilenen yaşam alanı.', img: heroBg },
-  { id: '02', title: 'Seçim ve Tasarım', desc: 'Showroomda bütçenize uygun zengin ürün alternatiflerinin tespiti.', img: ceramicArt },
-  { id: '03', title: 'Uygulama', desc: 'Ustalıkla uygulanan hayalleriniz, kusursuz montaj teknikleriyle gerçeğe dönüşüyor.', img: showroomBath },
-  { id: '04', title: 'Teslim ve Memnuniyet', desc: 'Tamamlanmış iş, mutlu müşterilerle teslim edilir.', img: heroImg },
+  { id: '01', title: 'Planlama', desc: 'Tadilat öncesi doğru planlama, seramiklerle yenilenen bir yaşam alanı.', img: heroBg },
+  { id: '02', title: 'Tasarım & Seçim', desc: 'Showroomumuzda zengin ürün yelpazesi ile doğru malzeme tercihi.', img: ceramicArt },
+  { id: '03', title: 'Uygulama', desc: 'Vitaly ile dönüşüm, ustalıkla uygulanan hayalleriniz gerçeğe dönüşüyor.', img: showroomBath },
+  { id: '04', title: 'Teslim ve Memnuniyet', desc: 'Tamamlanmış iş, mutlu müşterilerle teslim edilir. Memnuniyetiniz bizim başarımızdır.', img: heroImg },
+]
+
+const REFERENCE_PROJECTS = [
+  {
+    id: 1,
+    img: '/img/606211_gold calacatta_60x120.jpg',
+    title: 'Gold Calacatta (60x120 cm)',
+    tag: 'Mermer Dokulu Porselen',
+    desc: 'Altın damarlı, lüks cilalı yüzeyi ile modern mekanlarda duvar ve zemin kaplamaları için prestijli porselen karo seçeneği.'
+  },
+  {
+    id: 2,
+    img: '/img/606221_bella_60x120.jpg',
+    title: 'Bella Porselen (60x120 cm)',
+    tag: 'Premium Duvar Seramiği',
+    desc: 'Özgün hareli dokusu ve şık tonları ile banyo, mutfak tezgah arası ve özel tasarım duvarlar için ideal seramik karo.'
+  },
+  {
+    id: 3,
+    img: '/img/606281_river full lappato_60x120.jpg',
+    title: 'River Full Lappato (60x120 cm)',
+    tag: 'Parlak Porselen Karo',
+    desc: 'Işıltılı, yarı parlak lüks dokusu ve nehir taşı deseniyle geniş salon ve hol zeminlerine derinlik katan porselen kaplama.'
+  },
+  {
+    id: 4,
+    img: '/img/261903_cement antrasit_60x120.jpg',
+    title: 'Cement Antrasit (60x120 cm)',
+    tag: 'Beton Efektli Mat Seramik',
+    desc: 'Brüt beton dokusu ve mat antrasit tonu ile endüstriyel, minimalist ve modern mekan tasarımlarının vazgeçilmez porselen karosu.'
+  },
+  {
+    id: 5,
+    img: '/img/904303_sagano ceviz_30x120.jpg',
+    title: 'Sagano Ceviz (30x120 cm)',
+    tag: 'Ahşap Dokulu Seramik',
+    desc: 'Doğal ceviz ahşap liflerini seramiğin dayanıklılığı ile buluşturan, ıslak hacimler ve teraslar için ideal seramik parke.'
+  }
 ]
 
 const FOOTER_SERVICES = [
-  'Salon Seramikleri',
-  'Banyo & Vitrifiye',
-  'Mutfak Seramikleri',
-  'Dış Mekan Porselen',
-  'Yapı Kimyasalları',
-  'Banyo Mobilyaları',
+  'Salon & Antre Seramikleri',
+  'Lüks Vitrifiye & Armatür',
+  'Mutfak & Tezgah Arası',
+  'Dış Mekan & Teras Porselen',
+  'Yapı Kimyasalları & Derz',
+  'Özel Tasarım Banyo Mobilyası',
 ]
 
 function StarRating() {
   return <span className="text-primary text-sm tracking-wider">★★★★★</span>
+}
+
+function ProcessArrow() {
+  return (
+    <svg
+      className="process-step-arrow"
+      viewBox="0 0 120 36"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 24 C34 8, 56 8, 84 18 C96 23, 106 26, 114 24"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M108 20 L114 24 L108 28"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
 }
 
 function TrustFeatureIcon({ type }) {
@@ -155,6 +219,7 @@ function App() {
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeProj, setActiveProj] = useState(2)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -178,7 +243,7 @@ function App() {
 
       {/* Top Bar */}
       <div className="bg-obsidian text-surface text-center py-2.5 px-6 text-[10px] uppercase tracking-[0.2em] font-semibold">
-        Hayal Ettiğiniz Projelere Kavuşturur &nbsp;•&nbsp; Bursa — Fransa — Almanya
+        Hayal Ettiğiniz Projelere Kavuşturur &nbsp;•&nbsp; Seramik — Vitrifiye — Banyo — Mutfak
       </div>
 
       {/* Navigation */}
@@ -223,16 +288,16 @@ function App() {
           <span className="section-label block">Vitaly Concept</span>
 
           <h1 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[60px] xl:text-[64px] leading-[1.08] text-obsidian max-w-5xl mx-auto tracking-tighter">
-            Yepyeni Ve Güzel Mekânlar
+            Seramik Sanatında
             <br className="lg:hidden" />
-            <span className="hidden lg:inline italic text-primary"> Doğru</span>
-            <span className="lg:hidden italic text-primary">Doğru</span>
+            <span className="hidden lg:inline italic text-primary"> Özgünlük</span>
+            <span className="lg:hidden italic text-primary">Özgünlük</span>
             {' '}
             <span className="italic text-primary">
               <br className="hidden lg:block" />
-              Yöntemle
+              Ve
             </span>
-            {' '}Tasarlandı
+            {' '}Zarafet
           </h1>
 
           <p className="text-base lg:text-[17px] text-outline max-w-2xl lg:max-w-xl mx-auto leading-relaxed lg:leading-[1.7]">
@@ -265,11 +330,11 @@ function App() {
         <div className="container-max relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-6">
-              <span className="section-label block">Güvenilir Hizmet</span>
+              <span className="section-label block">Kalite ve Estetik</span>
               <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
-                Güvenilir Döşeme,
+                Seramikte Kalite,
                 <br />
-                Dürüst Hizmet.
+                Benzersiz Estetik.
                 <br />
                 Her Zaman.
               </h2>
@@ -316,13 +381,13 @@ function App() {
               />
 
               <div className="space-y-6 order-1 lg:order-2">
-                <span className="section-label block">Neden Biz?</span>
+                <span className="section-label block">Neden Vitaly?</span>
                 <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
-                  Yerel Halk Neden
+                  Neden Projelerde
                   <br />
-                  Vitaly Concept'e
+                  Vitaly Concept'i
                   <br />
-                  Güveniyor?
+                  Seçmelisiniz?
                 </h2>
                 <p className="text-sm text-outline leading-relaxed max-w-lg">
                   Güçlü stok ve tedarik ağımız sayesinde projelerinizi aksatmadan, hızlı ve güvenilir teslimat garantisi sunuyoruz.
@@ -362,11 +427,15 @@ function App() {
         <div className="container-max space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="section-label block">Koleksiyonlarımız</span>
-            <h2 className="font-display text-3xl sm:text-4xl text-obsidian">
-              Size Uygun Seramik Çözümünü Bulun.
+            <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
+              Size Uygun
+              <br />
+              Tasarım Çözümünü
+              <br />
+              Bulun.
             </h2>
             <p className="text-sm text-outline">
-              Geniş ve ferah showroomumuzda, her bütçeye ve tarza uygun zengin seçenekler sunuyoruz.
+              Geniş ve ferah showroomumuzda, seramikten banyo dolaplarına zengin seçenekler sunuyoruz.
             </p>
           </div>
 
@@ -401,31 +470,34 @@ function App() {
       </section>
 
       {/* Process */}
-      <section className="py-20 bg-surface-container-low border-t border-obsidian/10">
-        <div className="container-max space-y-14">
-          <div className="text-center space-y-3">
+      <section className="process-section border-t border-obsidian/10">
+        <div className="container-max">
+          <div className="process-header">
             <span className="section-label block">Profesyonel İş Akışı</span>
-            <h2 className="font-display text-3xl sm:text-4xl text-obsidian">Çalışma Sürecimiz</h2>
-            <p className="text-sm text-outline max-w-md mx-auto">
-              Projelerinizin hayata geçiş aşamaları
-            </p>
+            <h2 className="font-display">Çalışma Sürecimiz</h2>
+            <p>Projelerinizin hayata geçiş aşamaları</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6 relative">
+          <div className="process-steps">
+            <div className="process-step-arrows" aria-hidden="true">
+              <ProcessArrow />
+              <ProcessArrow />
+              <ProcessArrow />
+            </div>
             {PROCESS_STEPS.map((step, idx) => (
-              <div key={idx} className="text-center space-y-4 relative">
-                {idx < PROCESS_STEPS.length - 1 && (
-                  <div
-                    className="hidden lg:block absolute top-16 left-[calc(50%+64px)] w-[calc(100%-64px)] border-t border-dashed border-outline-variant"
-                    aria-hidden="true"
-                  />
-                )}
-                <div className="process-step-image">
-                  <img src={step.img} alt={step.title} className="w-full h-full object-cover" />
+              <div key={step.id} className="process-step">
+                <div className="process-step-visual">
+                  <div className={`process-step-circle${idx === 0 ? ' is-active' : ''}`}>
+                    <span className={`process-step-badge${idx === 0 ? ' is-active' : ''}`}>{step.id}</span>
+                    <div className="process-step-ring">
+                      <div className="process-step-image">
+                        <img src={step.img} alt={step.title} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-primary font-bold">{step.id}</span>
-                <h3 className="font-display text-lg text-obsidian">{step.title}</h3>
-                <p className="text-xs text-outline leading-relaxed max-w-[220px] mx-auto">{step.desc}</p>
+                <h3 className="process-step-title">{step.title}</h3>
+                <p className="process-step-desc">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -433,27 +505,117 @@ function App() {
       </section>
 
       {/* Featured Project */}
-      <section id="references" className="py-20 bg-surface border-t border-obsidian/10">
+      {/* Featured Project - Stack Gallery Redesign */}
+      <section id="references" className="py-24 bg-surface border-t border-obsidian/10 overflow-hidden">
         <div className="container-max">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="notched-frame overflow-hidden border border-obsidian/10 aspect-[4/3]">
-              <img src={heroBg} alt="Tamamlanan proje" className="w-full h-full object-cover" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            
+            {/* Left side: 3D Stack Deck layout */}
+            <div className="flex flex-col items-center">
+              <div className="relative h-[300px] sm:h-[400px] w-full max-w-[400px] flex items-center justify-center">
+                {REFERENCE_PROJECTS.map((proj, i) => {
+                  const offset = i - activeProj
+                  const absOffset = Math.abs(offset)
+                  
+                  // Transform calculations to create the gorgeous 3D stack effect peeking on both sides
+                  const zIndex = 30 - absOffset * 10
+                  const tx = offset * 32 // Horizontal shift offset
+                  const scale = 1 - absOffset * 0.08 // Card scale shrink
+                  const rotate = offset * 3 // Slight angle tilt
+                  const opacity = absOffset > 2 ? 0 : 1 - absOffset * 0.25
+
+                  return (
+                    <div
+                      key={proj.id}
+                      onClick={() => setActiveProj(i)}
+                      style={{
+                        zIndex,
+                        transform: `translateX(${tx}px) scale(${scale}) rotate(${rotate}deg)`,
+                        opacity,
+                        pointerEvents: absOffset > 2 ? 'none' : 'auto'
+                      }}
+                      className={`absolute w-[200px] sm:w-[260px] aspect-[4/5] bg-surface border transition-all duration-500 ease-in-out cursor-pointer overflow-hidden ${
+                        i === activeProj 
+                          ? 'border-primary shadow-lg shadow-obsidian/5' 
+                          : 'border-obsidian/10 hover:border-primary/50'
+                      }`}
+                    >
+                      <img 
+                        src={proj.img} 
+                        alt={proj.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-103"
+                      />
+                      {/* Active project small indicator badge inside card */}
+                      {i === activeProj && (
+                        <div className="absolute top-3 left-3 bg-primary text-white text-[8px] uppercase tracking-wider font-bold px-2 py-1">
+                          {proj.tag}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Slider Controls */}
+              <div className="flex items-center gap-4 mt-8">
+                <button
+                  onClick={() => setActiveProj(prev => (prev > 0 ? prev - 1 : REFERENCE_PROJECTS.length - 1))}
+                  className="w-12 h-12 border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 text-sm font-semibold"
+                  aria-label="Önceki Proje"
+                >
+                  ←
+                </button>
+                
+                {/* Dots indicator */}
+                <div className="flex gap-2">
+                  {REFERENCE_PROJECTS.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveProj(idx)}
+                      className={`w-2 h-2 transition-all duration-300 ${
+                        idx === activeProj ? 'bg-primary w-6' : 'bg-obsidian/20'
+                      }`}
+                      aria-label={`${idx + 1}. Proje`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setActiveProj(prev => (prev < REFERENCE_PROJECTS.length - 1 ? prev + 1 : 0))}
+                  className="w-12 h-12 border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-primary hover:text-white transition-all duration-300 active:scale-95 text-sm font-semibold"
+                  aria-label="Sonraki Proje"
+                >
+                  →
+                </button>
+              </div>
             </div>
 
+            {/* Right side: text details */}
             <div className="space-y-6">
-              <span className="section-label block">Referanslarımız</span>
+              <span className="section-label block">Ürünlerimiz &nbsp;•&nbsp; {REFERENCE_PROJECTS[activeProj].tag}</span>
+              
+              {/* Heading exactly matching screenshot style */}
               <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                Son Dönemdeki Seramik Kaplama Projelerimiz Ve İyileştirmelerimiz.
+                Mekanlara Değer Katan Seçkin Ürünlerimiz.
               </h2>
-              <p className="text-sm text-outline leading-relaxed">
-                Bursa Nilüfer'de uyguladığımız modern konut projesinde Gold Calacatta ve River Full Lappato serileriyle
-                şıklığı ve dayanıklılığı bir araya getirdik. Fransa ve Almanya'ya gerçekleştirdiğimiz ihracatlarla
-                kalitemizi küresel boyuta taşıdık.
-              </p>
-              <AnimatedButton href="#contact" size="sm">
-                Projeleri İncele
-              </AnimatedButton>
+              
+              {/* Dynamic project description based on selected card */}
+              <div className="space-y-4 min-h-[140px] flex flex-col justify-center border-l border-primary/20 pl-4 py-1">
+                <h4 className="font-sans font-bold text-base text-obsidian tracking-wide">
+                  {REFERENCE_PROJECTS[activeProj].title}
+                </h4>
+                <p className="text-xs sm:text-sm text-outline leading-relaxed font-light font-sans">
+                  {REFERENCE_PROJECTS[activeProj].desc}
+                </p>
+              </div>
+              
+              <div className="pt-2">
+                <AnimatedButton href="#contact" size="sm">
+                  Ürünleri İncele
+                </AnimatedButton>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -464,11 +626,11 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-6">
               <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                En İyi Seramik Kaplama Şirketini Hak Ediyorsunuz
+                Yaşam Alanlarınızda En İyi Tasarımı Hak Ediyorsunuz
               </h2>
               <p className="text-sm text-outline max-w-xl leading-relaxed">
-                Vitaly Concept ile hayallerinizdeki mekânları gerçeğe dönüştürmek artık çok daha kolay.
-                Kalite, estetik ve güvenilir hizmet anlayışımızla her zaman yanınızdayız.
+                Vitaly Concept ile hayallerinizdeki mekanları estetikle buluşturmak artık çok daha kolay.
+                Geniş showroomumuz ve profesyonel ekibimizle projeleriniz için yanınızdayız.
               </p>
               <AnimatedButton href="#contact">
                 Hemen İletişime Geçin
@@ -499,8 +661,8 @@ function App() {
             <div className="lg:col-span-5 border border-obsidian/10 bg-surface-container-low p-8 flex flex-col justify-between space-y-6">
               <div className="font-display text-5xl text-primary leading-none">"</div>
               <p className="text-sm text-obsidian leading-relaxed italic">
-                Vitaly Concept ekibi banyomuzu tamamen değiştirdi. Seramiklerin kalitesi ve uygulamanın kusursuzluğu
-                bizi büyüledi. Fransa'daki projemizi tam zamanında ve eksiksiz teslim ettiler. Kesinlikle tavsiye ediyoruz!
+                Vitaly Concept banyo tasarımımızı tamamen yeniledi. Showroomda gösterdikleri profesyonel ilgi ve
+                seramiklerin malzeme kalitesi gerçekten üst düzey. Fransa'ya lojistik sevk süreçleri de kusursuzdu.
               </p>
               <div className="flex items-center justify-between border-t border-obsidian/10 pt-5">
                 <div>
@@ -559,10 +721,10 @@ function App() {
               <div className="space-y-4">
                 <span className="section-label block">Bize Ulaşın</span>
                 <h2 className="font-display text-3xl sm:text-4xl text-obsidian leading-tight">
-                  Seramik Hizmetinizi Bugün Ayarlayın!
+                  Hayalinizdeki Projeyi Bugün Planlayın!
                 </h2>
                 <p className="text-sm text-outline leading-relaxed">
-                  Projeleriniz, siparişleriniz veya showroom ziyaretleriniz için bizimle irtibata geçebilirsiniz.
+                  Bireysel veya kurumsal seramik, vitrifiye ve banyo mobilyası ihtiyaçlarınız için bizimle iletişime geçin.
                 </p>
               </div>
 
@@ -598,7 +760,7 @@ function App() {
 
             <div className="bg-surface-container border border-obsidian/10 p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
-                <h3 className="font-display text-xl text-obsidian mb-2">Ücretsiz Fiyat Teklifi Alın</h3>
+                <h3 className="font-display text-xl text-obsidian mb-2">Bilgi ve Teklif Talebi Gönderin</h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
@@ -657,7 +819,7 @@ function App() {
                     rows="4"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Projenizin detaylarından bahsedin..."
+                    placeholder="Lütfen banyo, seramik veya vitrifiye projenizin detaylarından bahsedin..."
                     className="form-field resize-none"
                   />
                 </div>
