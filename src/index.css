@@ -132,4 +132,32 @@
   .check-icon {
     @apply shrink-0 w-5 h-5 border border-primary flex items-center justify-center text-primary text-[10px] font-bold mt-0.5;
   }
+
+  .hero-slider-item {
+    border-radius: 32px !important;
+  }
+
+  .hero-slider-track {
+    animation: hero-scroll 55s linear infinite;
+    will-change: transform;
+  }
+
+  .hero-slider:hover .hero-slider-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes hero-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slider-track {
+      animation: none;
+    }
+  }
 }

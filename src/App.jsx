@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import AnimatedButton from './components/AnimatedButton'
+import HeroSlider from './components/HeroSlider'
 import heroBg from './assets/hero_bg.png'
 import ceramicArt from './assets/ceramic_art.png'
 import showroomBath from './assets/showroom_bath.png'
@@ -14,10 +15,14 @@ const NAV_LINKS = [
 ]
 
 const HERO_GALLERY = [
-  { img: heroBg, title: 'Gold Calacatta' },
-  { img: ceramicArt, title: 'River Full Lappato' },
-  { img: showroomBath, title: 'Lüks Vitrifiye' },
-  { img: heroImg, title: 'Mat Beton Efekt' },
+  { img: '/img/mekan_gold calacata.jpg', title: 'Gold Calacatta', width: 1600, height: 900 },
+  { img: '/img/mekan_river.jpg', title: 'River Full Lappato', width: 1600, height: 2844 },
+  { img: '/img/mekan_rock.jpg', title: 'Rock Seramik', width: 1600, height: 952 },
+  { img: '/img/mekan_lava.jpg', title: 'Lava Seramik', width: 1600, height: 1360 },
+  { img: '/img/mekan_calacata marmi.jpg', title: 'Calacatta Marmi', width: 1600, height: 2112 },
+  { img: '/img/mekan_sicilya.jpg', title: 'Sicilya', width: 1600, height: 956 },
+  { img: '/img/mekan_sagano.jpg', title: 'Sagano', width: 1600, height: 2118 },
+  { img: '/img/mekan_sagano (2).jpg', title: 'Sagano Uygulama', width: 1600, height: 2114 },
 ]
 
 const TRUST_POINTS = [
@@ -148,7 +153,7 @@ function App() {
       </header>
 
       {/* Hero */}
-      <section id="home" className="pt-16 lg:pt-20 pb-20 bg-surface">
+      <section id="home" className="pt-16 lg:pt-20 pb-20 bg-surface overflow-hidden">
         <div className="container-max text-center space-y-6 lg:space-y-10">
           <span className="section-label block">Vitaly Concept</span>
 
@@ -175,19 +180,9 @@ function App() {
               Ücretsiz Teklif Al
             </AnimatedButton>
           </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 pt-8">
-            {HERO_GALLERY.map((item, idx) => (
-              <div key={idx} className="relative aspect-[4/3] overflow-hidden border border-obsidian/10 group">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            ))}
-          </div>
         </div>
+
+        <HeroSlider items={HERO_GALLERY} />
       </section>
 
       {/* About — Split 1: Text left, Image right */}
