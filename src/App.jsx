@@ -1,57 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import AnimatedButton from './components/AnimatedButton'
 import HeroSlider from './components/HeroSlider'
 import MediaEmbed from './components/MediaEmbed'
+import { SiteFooter, SiteHeader } from './components/SiteChrome'
 import heroBg from './assets/hero_bg.png'
 import ceramicArt from './assets/ceramic_art.png'
 import showroomBath from './assets/showroom_bath.png'
 import heroImg from './assets/hero.png'
 import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  User, 
   ChevronLeft, 
   ChevronRight, 
   ChevronDown, 
-  ArrowUp, 
   Trees, 
   Wrench, 
   Truck, 
   ShieldCheck, 
   Award,
-  Menu,
-  X
 } from 'lucide-react'
 
-const NAV_LINKS = [
-  { href: '#home', label: 'Anasayfa' },
-  { href: '#about', label: 'Kurumsal' },
-  { href: '#categories', label: 'Koleksiyonlar' },
-  { href: '#references', label: 'Ürünlerimiz' },
-  { href: '#contact', label: 'İletişim' },
-]
-
 const HERO_GALLERY = [
+  { img: '/img/mekan_luna.jpg', title: 'Luna White', width: 1600, height: 1346 },
+  { img: '/img/mekan_markuteri.jpg', title: 'Markuteri', width: 1600, height: 1200 },
+  { img: '/img/mekan_limestone.jpg', title: 'Lime Stone', width: 1600, height: 1142 },
+  { img: '/img/mekan_cafe_terrazo.jpg', title: 'Cafe Terrazo', width: 1600, height: 1400 },
+  { img: '/img/mekan_bosco.jpg', title: 'Bosco', width: 1600, height: 1142 },
+  { img: '/img/mekan_finewood.jpg', title: 'Finewood', width: 1600, height: 1142 },
+  { img: '/img/mekan_aura.jpg', title: 'Aura', width: 1600, height: 1142 },
+  { img: '/img/mekan_imperial.jpg', title: 'Imperial', width: 1600, height: 1145 },
   { img: '/img/mekan_gold calacata.jpg', title: 'Gold Calacatta', width: 1600, height: 900 },
   { img: '/img/mekan_river.jpg', title: 'River Full Lappato', width: 1600, height: 2844 },
-  { img: '/img/mekan_rock.jpg', title: 'Rock Seramik', width: 1600, height: 952 },
-  { img: '/img/mekan_lava.jpg', title: 'Lava Seramik', width: 1600, height: 1360 },
-  { img: '/img/mekan_calacata marmi.jpg', title: 'Calacatta Marmi', width: 1600, height: 2112 },
-  { img: '/img/mekan_sicilya.jpg', title: 'Sicilya', width: 1600, height: 956 },
-  { img: '/img/mekan_sagano.jpg', title: 'Sagano', width: 1600, height: 2118 },
-  { img: '/img/mekan_sagano (2).jpg', title: 'Sagano Uygulama', width: 1600, height: 2114 },
 ]
 
 const TRUST_MEDIA = {
-  poster: '/img/mekan_gold calacata.jpg',
+  poster: '/img/mekan_luna.jpg',
   src: '/video/trust-preview.mp4',
   type: 'video',
   slides: [
-    '/img/mekan_gold calacata.jpg',
-    '/img/mekan_calacata marmi.jpg',
-    '/img/mekan_river.jpg',
+    '/img/mekan_luna.jpg',
+    '/img/mekan_markuteri.jpg',
+    '/img/mekan_limestone.jpg',
+    '/img/mekan_cafe_terrazo.jpg',
   ],
 }
 
@@ -87,69 +76,81 @@ const PROCESS_STEPS = [
 const REFERENCE_PROJECTS = [
   {
     id: 1,
-    img: '/img/606211_gold calacatta_60x120.jpg',
-    title: 'Gold Calacatta (60x120 cm)',
+    img: '/img/luna_white_lappato_60x120.jpg',
+    title: 'Luna White Lappato (60x120 cm)',
     tag: 'Mermer Dokulu Porselen',
-    desc: 'Altın damarlı, lüks cilalı yüzeyi ile modern mekanlarda duvar ve zemin kaplamaları için prestijli porselen karo seçeneği.'
+    desc: 'Yumuşak beyaz damarlı lappato yüzeyi ile aydınlık banyo ve salon duvarlarına zarif bir mermer etkisi katan premium porselen.'
   },
   {
     id: 2,
-    img: '/img/606221_bella_60x120.jpg',
-    title: 'Bella Porselen (60x120 cm)',
-    tag: 'Premium Duvar Seramiği',
-    desc: 'Özgün hareli dokusu ve şık tonları ile banyo, mutfak tezgah arası ve özel tasarım duvarlar için ideal seramik karo.'
+    img: '/img/limestone_taupe_60x120.jpg',
+    title: 'Lime Stone Taupe (60x120 cm)',
+    tag: 'Doğal Taş Efektli Porselen',
+    desc: 'Sıcak taupe tonları ve doğal kireçtaşı dokusuyla otel, villa ve teras projelerinde dengeli bir zemin ve duvar çözümü.'
   },
   {
     id: 3,
-    img: '/img/606281_river full lappato_60x120.jpg',
-    title: 'River Full Lappato (60x120 cm)',
-    tag: 'Parlak Porselen Karo',
-    desc: 'Işıltılı, yarı parlak lüks dokusu ve nehir taşı deseniyle geniş salon ve hol zeminlerine derinlik katan porselen kaplama.'
+    img: '/img/markuteri_gri_60x60.jpg',
+    title: 'Markuteri Gri Mat (60x60 cm)',
+    tag: 'Mat Dekoratif Seramik',
+    desc: 'İnce ağaçsı damarlı mat gri yüzeyi ile yatak odası ve oturma alanlarında sakin, modern bir atmosfer oluşturur.'
   },
   {
     id: 4,
-    img: '/img/261903_cement antrasit_60x120.jpg',
-    title: 'Cement Antrasit (60x120 cm)',
-    tag: 'Beton Efektli Mat Seramik',
-    desc: 'Brüt beton dokusu ve mat antrasit tonu ile endüstriyel, minimalist ve modern mekan tasarımlarının vazgeçilmez porselen karosu.'
+    img: '/img/aura_grey_60x120.jpg',
+    title: 'Aura Grey (60x120 cm)',
+    tag: 'Taş Dokulu Porselen',
+    desc: 'Yumuşak gri taş deseni ve geniş formatıyla çağdaş mekanlarda hem zemin hem duvarda bütüncül bir görünüm sağlar.'
   },
   {
     id: 5,
-    img: '/img/904303_sagano ceviz_30x120.jpg',
-    title: 'Sagano Ceviz (30x120 cm)',
+    img: '/img/finewood_kahve_20x120.jpg',
+    title: 'Finewood Kahve (20x120 cm)',
     tag: 'Ahşap Dokulu Seramik',
-    desc: 'Doğal ceviz ahşap liflerini seramiğin dayanıklılığı ile buluşturan, ıslak hacimler ve teraslar için ideal seramik parke.'
-  }
+    desc: 'Doğal kahve ahşap liflerini seramiğin dayanıklılığıyla birleştiren, ıslak hacim ve yaşam alanları için ideal parke görünümü.'
+  },
+  {
+    id: 6,
+    img: '/img/imperial_siyah_60x120.jpg',
+    title: 'Imperial Siyah (60x120 cm)',
+    tag: 'Lüks Siyah Porselen',
+    desc: 'Derin siyah tonu ve sofistike damar yapısıyla lüks banyo, showroom ve prestijli iç mekan projelerinin güçlü vurgusu.'
+  },
+  {
+    id: 7,
+    img: '/img/fibre_grey_lappato_60x120.jpg',
+    title: 'Fibre Grey Lappato (60x120 cm)',
+    tag: 'Tekstürel Lappato Porselen',
+    desc: 'Lifli tekstür etkisi ve yarı parlak lappato yüzeyiyle modern mimariye hareket katan büyük ebatlı porselen karo.'
+  },
+  {
+    id: 8,
+    img: '/img/terrazo_flake_antrasit_60x60.jpg',
+    title: 'Terrazo Flake Antrasit (60x60 cm)',
+    tag: 'Terrazo Efektli Mat Seramik',
+    desc: 'Antrasit zemin üzerinde flake dokusuyla cafe, mağaza ve çağdaş konut projelerinde karakterli bir yüzey seçeneği.'
+  },
 ]
 
 const REVIEWS = [
   {
     name: 'Ahmet H.',
     role: 'Müşteri / Fransa',
-    avatar: '/img/mekan_lava.jpg',
+    avatar: '/img/mekan_luna.jpg',
     text: 'Vitaly Concept banyo tasarımımızı tamamen yeniledi. Showroomda gösterdikleri profesyonel ilgi ve seramiklerin malzeme kalitesi gerçekten üst düzey. Fransa\'ya lojistik sevk süreçleri de kusursuzdu.'
   },
   {
     name: 'Mehmet T.',
     role: 'Mimar / Bursa',
-    avatar: '/img/mekan_river.jpg',
+    avatar: '/img/mekan_markuteri.jpg',
     text: 'Projelerimizde aradığımız ebat ve estetiği Vitaly Concept\'te bulabiliyoruz. Güçlü stokları ve zamanında teslimatları sayesinde Nilüfer\'deki villa şantiyemizi aksatmadan tamamladık.'
   },
   {
     name: 'Sophia K.',
     role: 'Müşteri / Almanya',
-    avatar: '/img/mekan_calacata marmi.jpg',
-    text: 'Showroom kalitesini evimize taşıdık. Gold Calacatta ve Sagano seramiklerin kalitesi tek kelimeyle harika. Satış öncesi ve sonrası verdikleri danışmanlık hizmeti için teşekkür ederiz.'
+    avatar: '/img/mekan_limestone.jpg',
+    text: 'Showroom kalitesini evimize taşıdık. Luna White ve Lime Stone seramiklerin kalitesi tek kelimeyle harika. Satış öncesi ve sonrası verdikleri danışmanlık hizmeti için teşekkür ederiz.'
   }
-]
-
-const FOOTER_SERVICES = [
-  'Salon & Antre Seramikleri',
-  'Lüks Vitrifiye & Armatür',
-  'Mutfak & Tezgah Arası',
-  'Dış Mekan & Teras Porselen',
-  'Yapı Kimyasalları & Derz',
-  'Özel Tasarım Banyo Mobilyası',
 ]
 
 function StarRating() {
@@ -226,7 +227,6 @@ function App() {
     message: '',
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [activeProj, setActiveProj] = useState(2)
   const [activeReview, setActiveReview] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -234,7 +234,6 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40)
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight
       const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0
       setScrollProgress(progress)
@@ -242,6 +241,16 @@ function App() {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const id = window.location.hash.slice(1)
+      const el = document.getElementById(id)
+      if (el) {
+        requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth' }))
+      }
+    }
   }, [])
 
   const handleSubmit = (e) => {
@@ -257,47 +266,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-surface text-on-surface font-sans antialiased overflow-x-hidden">
-
-      {/* Top Bar */}
-      <div className="bg-obsidian text-surface text-center py-2.5 px-6 text-[10px] uppercase tracking-[0.2em] font-semibold">
-        Hayal Ettiğiniz Projelere Kavuşturur &nbsp;•&nbsp; Seramik — Vitrifiye — Banyo — Mutfak
-      </div>
-
-      {/* Navigation */}
-      <header
-        className={`sticky top-0 z-50 transition-all duration-500 border-b ${
-          scrolled
-            ? 'bg-surface-container-lowest/95 backdrop-blur-md py-4 border-obsidian/10'
-            : 'bg-surface-container-lowest py-5 border-obsidian/5'
-        }`}
-      >
-        <div className="container-max flex items-center justify-between gap-6">
-          <a href="#home" className="flex flex-col shrink-0">
-            <span className="font-display text-xl md:text-2xl tracking-wide text-obsidian">
-              Vitaly Concept
-            </span>
-            <span className="text-[9px] uppercase tracking-[0.15em] text-outline font-semibold">
-              Seramik • Vitrifiye • Tasarım
-            </span>
-          </a>
-
-          <nav className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          <AnimatedButton href="#contact" size="sm" className="shrink-0">
-            Ücretsiz Teklif Al
-          </AnimatedButton>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero */}
       <section id="home" className="pt-16 lg:pt-20 pb-20 bg-surface overflow-hidden">
@@ -626,9 +595,9 @@ function App() {
                 </p>
               </div>
               
-              <div className="pt-2">
-                <AnimatedButton href="#contact" size="sm">
-                  Ürünleri İncele
+              <div className="pt-2 flex flex-wrap gap-3">
+                <AnimatedButton href="/urunler" size="sm">
+                  Tüm Ürünleri Gör
                 </AnimatedButton>
               </div>
             </div>
@@ -974,60 +943,7 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-obsidian text-surface-container-high py-16">
-        <div className="container-max space-y-12">
-          <div className="text-center">
-            <h4 className="font-display text-3xl text-white tracking-wide">Vitaly Concept</h4>
-            <p className="text-[10px] uppercase tracking-[0.15em] text-surface-container-high mt-1">Seramik • Vitrifiye • Tasarım</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 border-t border-white/10 pt-12">
-            <div className="space-y-4">
-              <h5 className="text-[10px] uppercase tracking-[0.15em] text-white font-bold">Hizmetler</h5>
-              <div className="flex flex-col gap-2 text-xs text-surface-container-high">
-                {FOOTER_SERVICES.map((item) => (
-                  <a key={item} href="#categories" className="hover:text-primary transition-colors">{item}</a>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h5 className="text-[10px] uppercase tracking-[0.15em] text-white font-bold">Kurumsal</h5>
-              <div className="flex flex-col gap-2 text-xs text-surface-container-high">
-                {NAV_LINKS.map((link) => (
-                  <a key={link.href} href={link.href} className="hover:text-primary transition-colors">{link.label}</a>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h5 className="text-[10px] uppercase tracking-[0.15em] text-white font-bold">İletişim</h5>
-              <div className="text-xs text-surface-container-high space-y-2 leading-relaxed">
-                <p>Ahmet Yesevi, Sanayi Cd. No:563/D, 16140 Nilüfer/Bursa</p>
-                <p>+90 533 045 28 86</p>
-                <p>info@vitalyconcept.com</p>
-                <a
-                  href="https://www.instagram.com/vitalyconcept"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-block hover:text-primary transition-colors pt-1"
-                >
-                  @vitalyconcept
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-outline">
-            <span>Vitaly Concept © {new Date().getFullYear()}. Tüm Hakları Saklıdır.</span>
-            <div className="flex gap-4">
-              <a href="https://www.instagram.com/vitalyconcept" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors uppercase tracking-wider">Instagram</a>
-              <a href="#contact" className="hover:text-primary transition-colors uppercase tracking-wider">İletişim</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       {/* Floating Actions (WhatsApp + Scroll Progress Top Button) */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-center">
