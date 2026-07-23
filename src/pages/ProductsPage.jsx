@@ -166,7 +166,7 @@ export default function ProductsPage() {
                 Showroomumuzda numune inceleyebilir, projenize özel ölçü ve stok bilgisi alabilirsiniz.
               </p>
             </div>
-            <AnimatedButton href="/#contact">Ücretsiz Teklif Al</AnimatedButton>
+            <AnimatedButton href="/iletisim#teklif">Ücretsiz Teklif Al</AnimatedButton>
           </div>
         </div>
       </section>

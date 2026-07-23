@@ -292,7 +292,7 @@ function App() {
           </p>
 
           <div>
-            <AnimatedButton href="#contact">
+            <AnimatedButton href="/iletisim#teklif">
               Ücretsiz Teklif Al
             </AnimatedButton>
           </div>
@@ -330,7 +330,7 @@ function App() {
               </p>
               <CheckList items={TRUST_POINTS} />
               <div className="pt-2">
-                <AnimatedButton href="#contact" size="lg">
+                <AnimatedButton href="/kurumsal" size="lg">
                   Daha Fazla Bilgi
                 </AnimatedButton>
               </div>
@@ -379,7 +379,7 @@ function App() {
                   Güçlü stok ve tedarik ağımız sayesinde projelerinizi aksatmadan, hızlı ve güvenilir teslimat garantisi sunuyoruz.
                   Bursa'nın yanı sıra Fransa ve Almanya gibi uluslararası pazarlarda da kalitemizi kanıtlayarak müşteri memnuniyetini en üst seviyeye taşıyoruz.
                 </p>
-                <AnimatedButton href="#contact" size="lg">
+                <AnimatedButton href="/iletisim" size="lg">
                   Hemen İletişime Geçin
                 </AnimatedButton>
               </div>
@@ -429,7 +429,7 @@ function App() {
             {CATEGORIES.map((cat, idx) => (
               <a
                 key={idx}
-                href="#contact"
+                href="/iletisim"
                 className="group border border-obsidian/10 bg-surface-container-lowest overflow-hidden hover:border-primary transition-colors duration-300"
               >
                 <div className="service-card-header">
@@ -448,7 +448,7 @@ function App() {
           </div>
 
           <div className="text-center pt-4">
-            <AnimatedButton href="#contact">
+            <AnimatedButton href="/iletisim">
               Tüm Hizmetleri Gör
             </AnimatedButton>
           </div>
@@ -639,7 +639,7 @@ function App() {
               </p>
               <div className="pt-2">
                 <a
-                  href="#contact"
+                  href="/iletisim"
                   className="inline-flex items-center gap-4 bg-surface/10 hover:bg-primary border border-white/10 text-white text-[10px] uppercase tracking-[0.15em] font-bold pl-6 pr-2 py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <span>Hemen İletişime Geçin</span>

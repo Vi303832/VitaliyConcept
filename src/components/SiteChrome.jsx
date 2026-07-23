@@ -6,9 +6,9 @@ import AnimatedButton from './AnimatedButton'
 const NAV_LINKS = [
   { to: '/', label: 'Anasayfa', end: true },
   { to: '/urunler', label: 'Ürünler', end: false },
-  { to: '/#about', label: 'Kurumsal', hash: true },
+  { to: '/kurumsal', label: 'Kurumsal', end: false },
   { to: '/#categories', label: 'Koleksiyonlar', hash: true },
-  { to: '/#contact', label: 'İletişim', hash: true },
+  { to: '/iletisim', label: 'İletişim', end: false },
 ]
 
 export function SiteHeader() {
@@ -77,7 +77,7 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <AnimatedButton href="/#contact" size="sm" className="hidden sm:inline-flex shrink-0">
+            <AnimatedButton href="/iletisim#teklif" size="sm" className="hidden sm:inline-flex shrink-0">
               Ücretsiz Teklif Al
             </AnimatedButton>
             <button
@@ -125,7 +125,7 @@ export function SiteHeader() {
                 </NavLink>
               )
             )}
-            <AnimatedButton href="/#contact" onClick={() => setMenuOpen(false)}>
+            <AnimatedButton href="/iletisim#teklif" onClick={() => setMenuOpen(false)}>
               Ücretsiz Teklif Al
             </AnimatedButton>
           </nav>
@@ -153,14 +153,14 @@ export function SiteFooter() {
               <Link to="/" className="hover:text-primary transition-colors">Anasayfa</Link>
               <Link to="/urunler" className="hover:text-primary transition-colors">Tüm Ürünler</Link>
               <a href="/#categories" className="hover:text-primary transition-colors">Koleksiyonlar</a>
-              <a href="/#contact" className="hover:text-primary transition-colors">İletişim</a>
+              <Link to="/iletisim" className="hover:text-primary transition-colors">İletişim</Link>
             </div>
           </div>
 
           <div className="space-y-4">
             <h5 className="text-[10px] uppercase tracking-[0.15em] text-white font-bold">Kurumsal</h5>
             <div className="flex flex-col gap-2 text-xs text-surface-container-high">
-              <a href="/#about" className="hover:text-primary transition-colors">Hakkımızda</a>
+              <Link to="/kurumsal" className="hover:text-primary transition-colors">Hakkımızda</Link>
               <a href="/#references" className="hover:text-primary transition-colors">Öne Çıkan Ürünler</a>
             </div>
           </div>
