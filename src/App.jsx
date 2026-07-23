@@ -16,6 +16,7 @@ import {
   Truck, 
   ShieldCheck, 
   Award,
+  Phone,
 } from 'lucide-react'
 
 const HERO_GALLERY = [
@@ -875,6 +876,47 @@ function App() {
                   </div>
                 </div>
               </div>
+
+              <div className="flex flex-col gap-3 pt-6 w-full max-w-xs">
+                <AnimatedButton
+                  href="https://wa.me/905413587611"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  fullWidth
+                >
+                  WhatsApp ile Yazın
+                </AnimatedButton>
+                
+                <motion.a
+                  href="tel:+905413587611"
+                  className="relative overflow-hidden group flex items-center justify-between gap-4 bg-primary text-white font-sans font-bold text-xs uppercase tracking-[0.15em] h-12 pl-6 pr-2 rounded-full border border-primary-dark/10 shadow-md cursor-pointer select-none transition-shadow duration-300 hover:shadow-lg active:scale-95 w-full"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {/* Sliding hover bg */}
+                  <span className="absolute inset-0 bg-obsidian translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+                  
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Phone className="w-4 h-4 animate-bounce group-hover:animate-none" />
+                    <span>Hemen Bizi Arayın</span>
+                  </span>
+
+                  <span className="relative z-10 flex items-center justify-center w-8 h-8 bg-white/20 rounded-full text-white group-hover:bg-white group-hover:text-obsidian transition-colors duration-300 mr-0.5">
+                    <svg
+                      className="w-3.5 h-3.5 transform transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                  </span>
+                </motion.a>
+              </div>
             </motion.div>
 
             {/* Right Column: Form Card with Rounded Corners (Motion Fade-in and Slide-up) */}
@@ -919,14 +961,17 @@ function App() {
 
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-obsidian block">Telefon Numarası</label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="111-222-3333"
-                      className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
-                    />
+                    <div className="relative">
+                      <Phone className="w-4 h-4 text-obsidian/40 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="111-222-3333"
+                        className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian pl-10 pr-4 py-3 outline-none focus:border-primary transition-colors"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-1">
@@ -996,22 +1041,35 @@ function App() {
 
       <SiteFooter />
 
-      {/* Floating Actions (WhatsApp + Scroll Progress Top Button) */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-center">
-        
-        {/* WhatsApp Floating Button */}
-        <a
-          href="https://wa.me/905413587611"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative w-12 h-12 bg-[#25D366] hover:bg-[#20BA5A] text-white flex items-center justify-center rounded-full shadow-lg transition-all duration-300 active:scale-95 cursor-pointer animate-whatsapp-pulse"
-          aria-label="WhatsApp ile İletişime Geçin"
-        >
-          {/* Rippling attention-grabber effect */}
-          <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-40 -z-10"></span>
-          
-          <img src="/img/whatsapp_new.png" className="w-8 h-8 object-contain relative z-10 invert brightness-200" alt="WhatsApp" />
-        </a>
+      {/* Floating Actions (Call + WhatsApp + Scroll Progress Top Button) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
+        <div className="flex gap-3">
+          {/* Call Floating Button */}
+          <a
+            href="tel:+905413587611"
+            className="relative w-12 h-12 bg-primary hover:bg-primary-dark text-white flex items-center justify-center rounded-full shadow-lg transition-all duration-300 active:scale-95 cursor-pointer animate-whatsapp-pulse"
+            aria-label="Telefon ile İletişime Geçin"
+          >
+            {/* Rippling attention-grabber effect */}
+            <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-40 -z-10"></span>
+            
+            <Phone className="w-5 h-5 relative z-10" />
+          </a>
+
+          {/* WhatsApp Floating Button */}
+          <a
+            href="https://wa.me/905413587611"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative w-12 h-12 bg-[#25D366] hover:bg-[#20BA5A] text-white flex items-center justify-center rounded-full shadow-lg transition-all duration-300 active:scale-95 cursor-pointer animate-whatsapp-pulse"
+            aria-label="WhatsApp ile İletişime Geçin"
+          >
+            {/* Rippling attention-grabber effect */}
+            <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-40 -z-10"></span>
+            
+            <img src="/img/whatsapp_new.png" className="w-8 h-8 object-contain relative z-10 invert brightness-200" alt="WhatsApp" />
+          </a>
+        </div>
 
         {/* Scroll Progress & Back to Top Button */}
         {showScrollTop && (

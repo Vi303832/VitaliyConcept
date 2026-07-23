@@ -291,13 +291,46 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <AnimatedButton
-                href="https://wa.me/905413587611"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp ile Yazın
-              </AnimatedButton>
+              <div className="flex flex-col gap-3 pt-6 w-full max-w-xs">
+                <AnimatedButton
+                  href="https://wa.me/905413587611"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  fullWidth
+                >
+                  WhatsApp ile Yazın
+                </AnimatedButton>
+                
+                <motion.a
+                  href="tel:+905413587611"
+                  className="relative overflow-hidden group flex items-center justify-between gap-4 bg-primary text-white font-sans font-bold text-xs uppercase tracking-[0.15em] h-12 pl-6 pr-2 rounded-full border border-primary-dark/10 shadow-md cursor-pointer select-none transition-shadow duration-300 hover:shadow-lg active:scale-95 w-full"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {/* Sliding hover bg */}
+                  <span className="absolute inset-0 bg-obsidian translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+                  
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Phone className="w-4 h-4 animate-bounce group-hover:animate-none" />
+                    <span>Hemen Bizi Arayın</span>
+                  </span>
+
+                  <span className="relative z-10 flex items-center justify-center w-8 h-8 bg-white/20 rounded-full text-white group-hover:bg-white group-hover:text-obsidian transition-colors duration-300 mr-0.5">
+                    <svg
+                      className="w-3.5 h-3.5 transform transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                  </span>
+                </motion.a>
+              </div>
             </motion.div>
 
             <motion.div
@@ -365,16 +398,19 @@ export default function ContactPage() {
                       <label htmlFor="contact-phone" className="text-xs font-bold text-obsidian block">
                         Telefon
                       </label>
-                      <input
-                        id="contact-phone"
-                        name="phone"
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange('phone')}
-                        placeholder="05XX XXX XX XX"
-                        className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
-                      />
+                      <div className="relative">
+                        <Phone className="w-4 h-4 text-obsidian/40 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          id="contact-phone"
+                          name="phone"
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={handleChange('phone')}
+                          placeholder="05XX XXX XX XX"
+                          className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian pl-10 pr-4 py-3 outline-none focus:border-primary transition-colors"
+                        />
+                      </div>
                     </div>
                   </div>
 
