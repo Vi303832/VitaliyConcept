@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedButton from './AnimatedButton'
@@ -12,51 +12,80 @@ const NAV_LINKS = [
   { to: '/iletisim', label: 'İletişim', end: false },
 ]
 
+const LG_QUERY = '(min-width: 1024px)'
+
 export function SiteHeader() {
+  const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  useEffect(() => {
+    if (!menuOpen) return undefined
+
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+
+    const mq = window.matchMedia(LG_QUERY)
+    const onBreakpoint = (e) => {
+      if (e.matches) setMenuOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    mq.addEventListener('change', onBreakpoint)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      mq.removeEventListener('change', onBreakpoint)
+    }
+  }, [menuOpen])
+
   return (
     <>
-      <div className="bg-obsidian text-surface text-center py-2.5 px-6 text-[10px] uppercase tracking-[0.2em] font-semibold">
-        Hayal Ettiğiniz Projelere Kavuşturur &nbsp;•&nbsp; Seramik — Vitrifiye — Banyo — Mutfak
+      <div className="bg-obsidian text-surface text-center py-2 px-4 text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] font-semibold leading-snug">
+        <span className="inline sm:hidden">Hayal Ettiğiniz Projelere Kavuşturur</span>
+        <span className="hidden sm:inline">Hayal Ettiğiniz Projelere Kavuşturur &nbsp;•&nbsp; Seramik — Vitrifiye — Banyo — Mutfak</span>
       </div>
 
       <header
         className={`sticky top-0 z-50 transition-all duration-500 border-b ${
           scrolled
-            ? 'bg-surface-container-lowest/95 backdrop-blur-md py-4 border-obsidian/10'
-            : 'bg-surface-container-lowest py-5 border-obsidian/5'
+            ? 'bg-surface-container-lowest/95 backdrop-blur-md py-3 sm:py-4 border-obsidian/10'
+            : 'bg-surface-container-lowest py-3.5 sm:py-5 border-obsidian/5'
         }`}
       >
-        <div className="container-max flex items-center justify-between gap-6">
-          <Link to="/" className="flex flex-col shrink-0">
-            <span className="font-display text-xl md:text-2xl tracking-wide text-obsidian">
+        <div className="container-max flex items-center justify-between gap-3 sm:gap-4 lg:gap-6 min-w-0">
+          <Link to="/" className="flex flex-col min-w-0 shrink">
+            <span className="font-display text-[1.05rem] sm:text-xl md:text-2xl tracking-wide text-obsidian truncate">
               Vitaly Concept
             </span>
-            <span className="text-[9px] uppercase tracking-[0.15em] text-outline font-semibold">
+            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.12em] sm:tracking-[0.15em] text-outline font-semibold truncate">
               Seramik • Vitrifiye • Tasarım
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-8 shrink-0">
             {NAV_LINKS.map((link) =>
               link.hash ? (
                 <a
                   key={link.label}
                   href={link.to}
-                  className="text-xs uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors"
+                  className="text-[11px] xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors whitespace-nowrap"
                 >
                   {link.label}
                 </a>
@@ -66,7 +95,7 @@ export function SiteHeader() {
                   to={link.to}
                   end={link.end}
                   className={({ isActive }) =>
-                    `text-xs uppercase tracking-[0.1em] font-semibold transition-colors ${
+                    `text-[11px] xl:text-xs uppercase tracking-[0.08em] xl:tracking-[0.1em] font-semibold transition-colors whitespace-nowrap ${
                       isActive ? 'text-primary' : 'text-obsidian hover:text-primary'
                     }`
                   }
@@ -77,8 +106,12 @@ export function SiteHeader() {
             )}
           </nav>
 
-          <div className="flex items-center gap-3">
-            <AnimatedButton href="/iletisim#teklif" size="sm" className="hidden sm:inline-flex shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <AnimatedButton
+              href="/iletisim#teklif"
+              size="sm"
+              className="hidden lg:inline-flex"
+            >
               Ücretsiz Teklif Al
             </AnimatedButton>
             <button
@@ -86,6 +119,8 @@ export function SiteHeader() {
               className="lg:hidden w-10 h-10 border border-obsidian/10 hover:border-obsidian/25 hover:bg-obsidian/5 rounded-full flex items-center justify-center text-obsidian transition-all cursor-pointer"
               onClick={() => setMenuOpen(true)}
               aria-label="Menüyü aç"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
             >
               <Menu size={20} />
             </button>
@@ -96,25 +131,28 @@ export function SiteHeader() {
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-50 bg-obsidian/45 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-[100] bg-obsidian/45 backdrop-blur-sm lg:hidden"
+              aria-hidden="true"
             />
 
-            {/* Slide-out Drawer Panel */}
             <motion.div
+              id="mobile-nav"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobil menü"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-              className="fixed right-0 top-0 bottom-0 w-[300px] max-w-[85vw] z-[60] bg-surface shadow-2xl border-l border-obsidian/10 lg:hidden flex flex-col p-6 overflow-y-auto"
+              transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              className="fixed right-0 top-0 bottom-0 w-[min(100vw,300px)] z-[110] bg-surface shadow-2xl border-l border-obsidian/10 lg:hidden flex flex-col pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))] px-5 sm:px-6 overflow-y-auto overscroll-contain"
             >
-              <div className="flex justify-between items-center pb-6 border-b border-obsidian/10 mb-8">
-                <span className="font-display text-lg text-obsidian tracking-wide">Menu</span>
+              <div className="flex justify-between items-center pb-5 border-b border-obsidian/10 mb-6">
+                <span className="font-display text-lg text-obsidian tracking-wide">Menü</span>
                 <button
                   type="button"
                   onClick={() => setMenuOpen(false)}
@@ -125,14 +163,14 @@ export function SiteHeader() {
                 </button>
               </div>
 
-              <nav className="flex flex-col gap-2">
+              <nav className="flex flex-col gap-1">
                 {NAV_LINKS.map((link) =>
                   link.hash ? (
                     <a
                       key={link.label}
                       href={link.to}
                       onClick={() => setMenuOpen(false)}
-                      className="text-sm uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors py-3 border-b border-obsidian/5"
+                      className="text-sm uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors py-3.5 border-b border-obsidian/5"
                     >
                       {link.label}
                     </a>
@@ -143,7 +181,7 @@ export function SiteHeader() {
                       end={link.end}
                       onClick={() => setMenuOpen(false)}
                       className={({ isActive }) =>
-                        `text-sm uppercase tracking-[0.1em] font-semibold py-3 border-b border-obsidian/5 transition-colors ${
+                        `text-sm uppercase tracking-[0.1em] font-semibold py-3.5 border-b border-obsidian/5 transition-colors ${
                           isActive ? 'text-primary' : 'text-obsidian hover:text-primary'
                         }`
                       }
@@ -154,11 +192,11 @@ export function SiteHeader() {
                 )}
               </nav>
 
-              <div className="mt-auto pt-6 border-t border-obsidian/10">
+              <div className="mt-auto pt-8">
                 <AnimatedButton
                   href="/iletisim#teklif"
                   onClick={() => setMenuOpen(false)}
-                  className="w-full text-center py-4 text-xs font-bold uppercase tracking-[0.15em] flex justify-center items-center"
+                  fullWidth
                 >
                   Ücretsiz Teklif Al
                 </AnimatedButton>
