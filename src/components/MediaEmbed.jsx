@@ -17,6 +17,7 @@ export default function MediaEmbed({
   slides = [],
   autoPlayGif = true,
 }) {
+  const containerRef = useRef(null)
   const videoRef = useRef(null)
   const [mode, setMode] = useState('idle')
   const [slideIndex, setSlideIndex] = useState(0)
@@ -41,6 +42,46 @@ export default function MediaEmbed({
     setMode('gif')
   }, [hasGif, autoPlayGif])
 
+  // Performance-friendly autoplay when scrolled into view
+  useEffect(() => {
+    if (!hasVideo) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMode('video')
+          // Allow the video element to mount if it isn't already
+          requestAnimationFrame(() => {
+            if (videoRef.current) {
+              videoRef.current.play().catch((err) => {
+                console.log('Autoplay was prevented or failed:', err)
+              })
+            }
+          })
+        } else {
+          // Pause when off-screen to save resources/performance
+          if (videoRef.current && !videoRef.current.paused) {
+            videoRef.current.pause()
+          }
+        }
+      },
+      {
+        threshold: 0.15, // Trigger when 15% of the element is visible
+      }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current)
+      }
+      observer.disconnect()
+    }
+  }, [hasVideo])
+
   const handlePlay = async () => {
     if (hasGif) {
       setMode('gif')
@@ -64,7 +105,7 @@ export default function MediaEmbed({
   const activePoster = previewSlides[slideIndex] ?? poster
 
   return (
-    <div className={`media-embed ${className}`}>
+    <div ref={containerRef} className={`media-embed ${className}`}>
       {mode === 'gif' && hasGif && (
         <img src={src} alt={alt} className="media-embed__media" />
       )}
@@ -77,7 +118,9 @@ export default function MediaEmbed({
           poster={poster}
           controls
           playsInline
-          autoPlay
+          muted
+          loop
+          preload="metadata"
           onCanPlay={() => setVideoReady(true)}
           onEnded={() => {
             setVideoReady(false)

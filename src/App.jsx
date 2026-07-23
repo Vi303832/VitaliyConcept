@@ -7,14 +7,14 @@ import { SiteFooter, SiteHeader } from './components/SiteChrome'
 import heroBg from './assets/hero_bg.png'
 import ceramicArt from './assets/ceramic_art.png'
 import showroomBath from './assets/showroom_bath.png'
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  ChevronDown, 
-  Trees, 
-  Wrench, 
-  Truck, 
-  ShieldCheck, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  Trees,
+  Wrench,
+  Truck,
+  ShieldCheck,
   Award,
   Phone,
 } from 'lucide-react'
@@ -164,22 +164,44 @@ const REFERENCE_PROJECTS = [
 
 const REVIEWS = [
   {
-    name: 'Ahmet H.',
-    role: 'Müşteri / Fransa',
-    avatar: '/img/mekan_luna.webp',
-    text: 'Vitaly Concept banyo tasarımımızı tamamen yeniledi. Showroomda gösterdikleri profesyonel ilgi ve seramiklerin malzeme kalitesi gerçekten üst düzey. Fransa\'ya lojistik sevk süreçleri de kusursuzdu.'
+    name: 'Rengin Soydan',
+    role: 'Google Yerel Rehber',
+    text: 'Kafanızdaki tüm soru işaretlerinin sonlandığı, muhteşem bir ilgiyle karşılandığınız tek adres. İbrahim Bey ve Onur Bey\'in güler yüzü, yakın ilgisi ve profesyonel yönlendirmeleri için minnettarız.'
   },
   {
-    name: 'Mehmet T.',
-    role: 'Mimar / Bursa',
-    avatar: '/img/mekan_markuteri.webp',
-    text: 'Projelerimizde aradığımız ebat ve estetiği Vitaly Concept\'te bulabiliyoruz. Güçlü stokları ve zamanında teslimatları sayesinde Nilüfer\'deki villa şantiyemizi aksatmadan tamamladık.'
+    name: 'Ahmet Sarıışık',
+    role: 'Google Yerel Rehber',
+    text: 'Harika bir hizmet, profesyonel bir kadro! Banyo tadilatı ve tasarımı konusunda Bursa\'daki en doğru, en güvenilir adreslerden biri. Kaliteli ürün ve kusursuz işçilik arayanlar mutlaka uğramalı.'
   },
   {
-    name: 'Sophia K.',
-    role: 'Müşteri / Almanya',
-    avatar: '/img/mekan_limestone.webp',
-    text: 'Showroom kalitesini evimize taşıdık. Luna White ve Lime Stone seramiklerin kalitesi tek kelimeyle harika. Satış öncesi ve sonrası verdikleri danışmanlık hizmeti için teşekkür ederiz.'
+    name: 'Murat Kenar',
+    role: 'Google Kullanıcısı',
+    text: 'Müthiş zevkli tasarımlar... Müşteri isteklerine ve memnuniyetine son derece önem veren saygın bir firma. Her bütçeye hitap etmeleri de en büyük artılarından biri.'
+  },
+  {
+    name: 'Fatih Uygun',
+    role: 'Google Yerel Rehber',
+    text: 'Güler yüz, yakın ilgi ve kaliteli ürünlerin tecrübe ile bütünleştiği harika bir işletme. Seramik ve banyo dekorasyonuna dair aradığınız her şeyi bulabilirsiniz. Kesinlikle herkese tavsiye ederim.'
+  },
+  {
+    name: 'Aslıhan Boduroğlu',
+    role: 'Google Kullanıcısı',
+    text: 'Müşteri memnuniyetini gerçekten çok önemsiyorlar. Kendilerinde o an bulunmayan özel bir ürünü bile başka yerlerden araştırıp bulmamıza yardımcı oldular. Bu kadar ilgili bir ekiple karşılaşmak çok güzel.'
+  },
+  {
+    name: 'Korhan Karakaya',
+    role: 'Google Kullanıcısı',
+    text: 'İbrahim Bey ve ekibi bu işin hakkını sonuna kadar veriyor. İşinin ehli, dürüst ve kaliteden asla ödün vermeyen, son derece profesyonel bir işletme.'
+  },
+  {
+    name: 'Zafer Bingöl',
+    role: 'Google Kullanıcısı',
+    text: 'Harika bir mağaza ve son derece ilgili, güler yüzlü bir ekibe sahipler. İlgi ve alakalarından ötürü tüm çalışanlara teşekkür ederim.'
+  },
+  {
+    name: 'Erhan Işık',
+    role: 'Google Yerel Rehber',
+    text: 'Kaliteli, güvenilir ve son derece hızlı hizmet anlayışı. Sundukları yaratıcı çözümler ve güler yüzlü yaklaşımlarıyla kesinlikle tavsiye edeceğim bir işletme.'
   }
 ]
 
@@ -252,11 +274,13 @@ function App() {
     name: '',
     phone: '',
     email: '',
-    service: 'Banyo Tasarımı',
+    service: 'Banyo & Vitrifiye Tasarımı',
     store: 'Bursa Showroom',
     message: '',
   })
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
   const [activeProj, setActiveProj] = useState(2)
   const [activeReview, setActiveReview] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -283,14 +307,44 @@ function App() {
     }
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (formData.name && formData.phone) {
-      setFormSubmitted(true)
-      setTimeout(() => {
-        setFormData({ name: '', phone: '', email: '', service: 'Banyo Tasarımı', store: 'Bursa Showroom', message: '' })
-        setFormSubmitted(false)
-      }, 5000)
+    if (!formData.name || !formData.phone) return
+
+    setIsSubmitting(true)
+    setSubmitError(false)
+
+    try {
+      const response = await fetch('https://formspree.io/f/mpqvjeod', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (response.ok) {
+        setFormSubmitted(true)
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          service: 'Banyo & Vitrifiye Tasarımı',
+          store: 'Bursa Showroom',
+          message: ''
+        })
+        setTimeout(() => {
+          setFormSubmitted(false)
+        }, 6000)
+      } else {
+        setSubmitError(true)
+      }
+    } catch (error) {
+      console.error('Form gönderim hatası:', error)
+      setSubmitError(true)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -310,7 +364,7 @@ function App() {
             {/* Top Left corner lines */}
             <line x1="-100" y1="120" x2="600" y2="-40" className="about-gold-stroke" />
             <line x1="-50" y1="220" x2="700" y2="40" className="about-gold-stroke about-gold-stroke--soft" />
-            
+
             {/* Bottom Right corner lines */}
             <line x1="680" y1="700" x2="1380" y2="520" className="about-gold-stroke" />
             <line x1="800" y1="620" x2="1380" y2="480" className="about-gold-stroke about-gold-stroke--light" />
@@ -547,14 +601,14 @@ function App() {
       <section id="references" className="py-24 bg-surface border-t border-obsidian/10 overflow-hidden">
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            
+
             {/* Left side: 3D Stack Deck layout */}
             <div className="flex flex-col items-center">
               <div className="relative h-[300px] sm:h-[400px] w-full max-w-[400px] flex items-center justify-center">
                 {REFERENCE_PROJECTS.map((proj, i) => {
                   const offset = i - activeProj
                   const absOffset = Math.abs(offset)
-                  
+
                   // Transform calculations to create the gorgeous 3D stack effect peeking on both sides
                   const zIndex = 30 - absOffset * 10
                   const tx = offset * 32 // Horizontal shift offset
@@ -572,15 +626,14 @@ function App() {
                         opacity,
                         pointerEvents: absOffset > 2 ? 'none' : 'auto'
                       }}
-                      className={`absolute w-[200px] sm:w-[260px] aspect-[4/5] bg-surface border transition-all duration-500 ease-in-out cursor-pointer overflow-hidden ${
-                        i === activeProj 
-                          ? 'border-primary shadow-lg shadow-obsidian/5' 
-                          : 'border-obsidian/10 hover:border-primary/50'
-                      }`}
+                      className={`absolute w-[200px] sm:w-[260px] aspect-[4/5] bg-surface border transition-all duration-500 ease-in-out cursor-pointer overflow-hidden ${i === activeProj
+                        ? 'border-primary shadow-lg shadow-obsidian/5'
+                        : 'border-obsidian/10 hover:border-primary/50'
+                        }`}
                     >
-                      <img 
-                        src={proj.img} 
-                        alt={proj.title} 
+                      <img
+                        src={proj.img}
+                        alt={proj.title}
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-103"
                       />
                       {/* Active project small indicator badge inside card */}
@@ -603,16 +656,15 @@ function App() {
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                
+
                 {/* Dots indicator */}
                 <div className="flex gap-2">
                   {REFERENCE_PROJECTS.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveProj(idx)}
-                      className={`w-2 h-2 transition-all duration-300 ${
-                        idx === activeProj ? 'bg-primary w-6' : 'bg-obsidian/20'
-                      }`}
+                      className={`w-2 h-2 transition-all duration-300 ${idx === activeProj ? 'bg-primary w-6' : 'bg-obsidian/20'
+                        }`}
                       aria-label={`${idx + 1}. Proje`}
                     />
                   ))}
@@ -631,12 +683,12 @@ function App() {
             {/* Right side: text details */}
             <div className="space-y-6">
               <span className="section-label block">Ürünlerimiz &nbsp;•&nbsp; {REFERENCE_PROJECTS[activeProj].tag}</span>
-              
+
               {/* Heading exactly matching screenshot style */}
               <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-obsidian leading-tight">
                 Mekanlara Değer Katan Seçkin Ürünlerimiz.
               </h2>
-              
+
               {/* Dynamic project description based on selected card */}
               <div className="space-y-4 min-h-[140px] flex flex-col justify-center border-l border-primary/20 pl-4 py-1">
                 <h4 className="font-sans font-bold text-base text-obsidian tracking-wide">
@@ -646,7 +698,7 @@ function App() {
                   {REFERENCE_PROJECTS[activeProj].desc}
                 </p>
               </div>
-              
+
               <div className="pt-2 flex flex-wrap gap-3">
                 <AnimatedButton href="/urunler" size="sm">
                   Tüm Ürünleri Gör
@@ -661,14 +713,14 @@ function App() {
       {/* Banner CTA - Rounded Card & Cutout Overlap Redesign */}
       <section className="relative overflow-visible py-12 md:py-24 bg-surface">
         <div className="relative max-w-7xl mx-auto px-6 md:px-12">
-          
+
           {/* Rounded Background Card with wood-tile texture */}
-          <div 
-            className="absolute inset-x-6 md:inset-x-12 top-0 bottom-0 rounded-[32px] border border-obsidian/10 overflow-hidden" 
-            style={{ 
-              backgroundImage: "url('/img/904303_sagano ceviz_30x120.webp')", 
-              backgroundSize: 'cover', 
-              backgroundPosition: 'center' 
+          <div
+            className="absolute inset-x-6 md:inset-x-12 top-0 bottom-0 rounded-[32px] border border-obsidian/10 overflow-hidden"
+            style={{
+              backgroundImage: "url('/img/904303_sagano ceviz_30x120.webp')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
             }}
           >
             {/* Gradient Overlay matching project dark Obsidian brand identity */}
@@ -676,11 +728,11 @@ function App() {
           </div>
 
           {/* Content grid with visible overflow */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center px-12 md:px-24 py-12 md:py-16 min-h-[320px] relative">
-            
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center px-8 md:px-24 py-12 md:py-16 min-h-[360px] md:min-h-[320px] relative">
+
             {/* Left Column (Text & Button) */}
-            <div className="md:col-span-7 space-y-6 text-left text-white z-10">
-              <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-[40px] text-white leading-[1.1] tracking-tight">
+            <div className="md:col-span-7 space-y-4 md:space-y-6 text-left text-white z-10 w-full">
+              <h2 className="font-sans font-extrabold text-2xl sm:text-4xl lg:text-[40px] text-white leading-[1.1] tracking-tight">
                 Yaşam Alanlarınızda En İyi
                 <br />
                 Tasarımı Hak Ediyorsunuz
@@ -692,10 +744,10 @@ function App() {
               <div className="pt-2">
                 <a
                   href="/iletisim"
-                  className="inline-flex items-center gap-4 bg-surface/10 hover:bg-primary border border-white/10 text-white text-[10px] uppercase tracking-[0.15em] font-bold pl-6 pr-2 py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="inline-flex items-center gap-2 md:gap-4 bg-surface/10 hover:bg-primary border border-white/10 text-white text-[9px] md:text-[10px] uppercase tracking-[0.08em] md:tracking-[0.15em] font-bold pl-4 md:pl-6 pr-1.5 md:pr-2 py-1.5 md:py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   <span>Hemen İletişime Geçin</span>
-                  <span className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white shrink-0 text-xs">
+                  <span className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-primary flex items-center justify-center text-white shrink-0 text-[10px] md:text-xs">
                     ↗
                   </span>
                 </a>
@@ -704,23 +756,28 @@ function App() {
 
             {/* Right Column Spacer for grid spacing */}
             <div className="hidden md:block md:col-span-5 h-[200px]" />
-            
+
           </div>
 
           {/* Absolute Cutout image positioned relative to the card bounds (aligns bottom, extends top) */}
-          <img 
-            src="/img/showroom_manager.png" 
-            alt="Vitaly Concept uzman ekibi" 
-            className="absolute bottom-0 right-12 md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20"
+          <img
+            src="/img/showroom_manager.png"
+            alt="Vitaly Concept uzman ekibi"
+            className="absolute bottom-0 right-12 md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20 max-md:hidden"
           />
-
+          <span className="md:hidden block pt-50 " />
+          <img
+            src="/img/showroom_manager.png"
+            alt="Vitaly Concept uzman ekibi"
+            className="absolute bottom-0 -right-10 md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20 md:hidden "
+          />
         </div>
       </section>
 
       {/* Reviews - Custom Grid & Slider Redesign */}
       <section className="py-20 bg-surface border-t border-obsidian/10">
         <div className="container-max">
-          
+
           {/* Left-aligned editorial header */}
           <div className="max-w-3xl mb-12">
             <span className="section-label block mb-2">Müşteri Memnuniyeti</span>
@@ -732,13 +789,13 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
+
             {/* Left Testimonial Card Slider - Fixed Height */}
             <div className="lg:col-span-5 border border-obsidian/10 bg-surface-container-low p-8 md:p-10 flex flex-col justify-between rounded-[24px] shadow-sm relative h-[380px] sm:h-[424px]">
-              
+
               {/* Bronze Quote mark */}
               <div className="font-sans text-6xl text-primary leading-none select-none">“</div>
-              
+
               {/* Dynamic Review Text with smooth transition */}
               <div className="flex-grow flex items-center">
                 <p className="text-sm md:text-base text-obsidian leading-relaxed italic font-light">
@@ -764,14 +821,14 @@ function App() {
 
                 {/* Slider Navigation Buttons */}
                 <div className="flex gap-2">
-                  <button 
+                  <button
                     onClick={() => setActiveReview(prev => (prev > 0 ? prev - 1 : REVIEWS.length - 1))}
                     className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90 cursor-pointer"
                     aria-label="Önceki Yorum"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
-                  <button 
+                  <button
                     onClick={() => setActiveReview(prev => (prev < REVIEWS.length - 1 ? prev + 1 : 0))}
                     className="w-10 h-10 rounded-full border border-obsidian/10 flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-all duration-300 active:scale-90 cursor-pointer"
                     aria-label="Sonraki Yorum"
@@ -785,7 +842,7 @@ function App() {
 
             {/* Right side: 2x2 Grid - Fixed heights aligning with the left card */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              
+
               {/* Card 1: Top-Left Image */}
               <div className="border border-obsidian/10 overflow-hidden rounded-[24px] h-[200px]">
                 <img src="/img/mekan_river.webp" alt="River seramik kaplama salon" loading="lazy" className="w-full h-full object-cover" />
@@ -832,9 +889,9 @@ function App() {
       <section id="contact" className="py-20 bg-surface border-t border-obsidian/10">
         <div className="container-max">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
-            
+
             {/* Left Column: Info Text & Checklist (Motion Fade-in from Left) */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: '-100px' }}
@@ -886,7 +943,7 @@ function App() {
                 >
                   WhatsApp ile Yazın
                 </AnimatedButton>
-                
+
                 <motion.a
                   href="tel:+905413587611"
                   className="relative overflow-hidden group flex items-center justify-between gap-4 bg-primary text-white font-sans font-bold text-xs uppercase tracking-[0.15em] h-12 pl-6 pr-2 rounded-full border border-primary-dark/10 shadow-md cursor-pointer select-none transition-shadow duration-300 hover:shadow-lg active:scale-95 w-full"
@@ -895,7 +952,7 @@ function App() {
                 >
                   {/* Sliding hover bg */}
                   <span className="absolute inset-0 bg-obsidian translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
-                  
+
                   <span className="relative z-10 flex items-center gap-2">
                     <Phone className="w-4 h-4 animate-bounce group-hover:animate-none" />
                     <span>Hemen Bizi Arayın</span>
@@ -920,7 +977,7 @@ function App() {
             </motion.div>
 
             {/* Right Column: Form Card with Rounded Corners (Motion Fade-in and Slide-up) */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
@@ -940,10 +997,11 @@ function App() {
                     <label className="text-xs font-bold text-obsidian block">Ad Soyad</label>
                     <input
                       type="text"
+                      name="name"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Arlene McCoy"
+                      placeholder="Örn. Ahmet Yılmaz"
                       className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -952,9 +1010,10 @@ function App() {
                     <label className="text-xs font-bold text-obsidian block">E-Posta</label>
                     <input
                       type="email"
+                      name="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="hello@arlenemccoy.com"
+                      placeholder="Örn. ahmet@ornek.com"
                       className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -965,10 +1024,11 @@ function App() {
                       <Phone className="w-4 h-4 text-obsidian/40 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                       <input
                         type="tel"
+                        name="phone"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="111-222-3333"
+                        placeholder="Örn. 0555 555 55 55"
                         className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian pl-10 pr-4 py-3 outline-none focus:border-primary transition-colors"
                       />
                     </div>
@@ -978,6 +1038,7 @@ function App() {
                     <label className="text-xs font-bold text-obsidian block">Talep Edilen Hizmet</label>
                     <div className="relative">
                       <select
+                        name="service"
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                         className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
@@ -995,6 +1056,7 @@ function App() {
                     <label className="text-xs font-bold text-obsidian block">Hangi showroom ile çalışmak istersiniz?</label>
                     <div className="relative">
                       <select
+                        name="store"
                         value={formData.store}
                         onChange={(e) => setFormData({ ...formData, store: e.target.value })}
                         className="w-full bg-white border border-obsidian/10 rounded-[12px] text-sm text-obsidian px-4 py-3 outline-none focus:border-primary transition-colors appearance-none cursor-pointer"
@@ -1009,6 +1071,7 @@ function App() {
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-obsidian block">Mesajınız</label>
                     <textarea
+                      name="message"
                       rows="3"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -1019,6 +1082,12 @@ function App() {
                 </div>
 
                 <div className="pt-2">
+                  {submitError && (
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-600 text-xs font-bold py-3 text-center rounded-[12px] mb-3">
+                      Gönderim başarısız oldu. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.
+                    </div>
+                  )}
+
                   {formSubmitted ? (
                     <div className="bg-primary/10 border border-primary/20 text-primary-dark text-xs font-bold py-4 text-center rounded-[12px]">
                       Talebiniz başarıyla iletildi. En kısa sürede sizinle irtibata geçeceğiz.
@@ -1026,9 +1095,10 @@ function App() {
                   ) : (
                     <button
                       type="submit"
-                      className="w-full bg-obsidian text-white text-xs uppercase tracking-[0.15em] font-bold py-4 rounded-[12px] hover:bg-primary transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+                      disabled={isSubmitting}
+                      className="w-full bg-obsidian text-white text-xs uppercase tracking-[0.15em] font-bold py-4 rounded-[12px] hover:bg-primary transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Teklif Alın / Gönder
+                      {isSubmitting ? 'Gönderiliyor...' : 'Teklif Alın / Gönder'}
                     </button>
                   )}
                 </div>
@@ -1052,7 +1122,7 @@ function App() {
           >
             {/* Rippling attention-grabber effect */}
             <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-40 -z-10"></span>
-            
+
             <Phone className="w-5 h-5 relative z-10" />
           </a>
 
@@ -1066,14 +1136,14 @@ function App() {
           >
             {/* Rippling attention-grabber effect */}
             <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-40 -z-10"></span>
-            
+
             <img src="/img/whatsapp_new.png" className="w-8 h-8 object-contain relative z-10 invert brightness-200" alt="WhatsApp" />
           </a>
         </div>
 
         {/* Scroll Progress & Back to Top Button */}
         {showScrollTop && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.5, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
