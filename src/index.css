@@ -232,8 +232,12 @@
   .process-step-image {
     width: var(--process-ring-size);
     height: var(--process-ring-size);
-    @apply overflow-hidden;
+    @apply overflow-hidden bg-surface-container-low;
     border-radius: 50% !important;
+  }
+
+  .process-step-image.is-logo {
+    @apply bg-white flex items-center justify-center;
   }
 
   .process-step-badge {
@@ -297,6 +301,85 @@
     .hero-slider-track {
       animation: none;
     }
+  }
+
+  .hero-section {
+    position: relative;
+    isolation: isolate;
+  }
+
+  @keyframes float-slow-1 {
+    0%, 100% {
+      transform: translate(-15%, -15%) scale(1);
+    }
+    50% {
+      transform: translate(-10%, -12%) scale(1.08);
+    }
+  }
+
+  @keyframes float-slow-2 {
+    0%, 100% {
+      transform: translate(15%, 15%) scale(1);
+    }
+    50% {
+      transform: translate(10%, 18%) scale(1.05);
+    }
+  }
+
+  .hero-gold-bg-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45vw;
+    height: 45vw;
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 50% !important;
+    background: radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.16) 0%, rgba(197, 160, 89, 0.06) 50%, transparent 75%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-15%, -15%);
+    animation: float-slow-1 15s ease-in-out infinite;
+  }
+
+  .hero-gold-bg-right {
+    position: absolute;
+    bottom: 5%;
+    right: 0;
+    width: 55vw;
+    height: 55vw;
+    max-width: 600px;
+    max-height: 600px;
+    border-radius: 50% !important;
+    background: radial-gradient(circle at 100% 100%, rgba(197, 160, 89, 0.14) 0%, rgba(255, 222, 165, 0.05) 50%, transparent 75%);
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(15%, 15%);
+    animation: float-slow-2 18s ease-in-out infinite;
+  }
+
+  .hero-gold-bg-lines {
+    @apply absolute inset-0 z-0 pointer-events-none;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
+
+  .hero-gold-bg-lines svg {
+    @apply absolute inset-0 w-full h-full;
   }
 
   .about-section {

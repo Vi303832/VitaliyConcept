@@ -7,7 +7,6 @@ import { SiteFooter, SiteHeader } from './components/SiteChrome'
 import heroBg from './assets/hero_bg.png'
 import ceramicArt from './assets/ceramic_art.png'
 import showroomBath from './assets/showroom_bath.png'
-import heroImg from './assets/hero.png'
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -100,7 +99,7 @@ const PROCESS_STEPS = [
   { id: '01', title: 'Planlama', desc: 'Tadilat öncesi doğru planlama, seramiklerle yenilenen bir yaşam alanı.', img: heroBg },
   { id: '02', title: 'Tasarım & Seçim', desc: 'Showroomumuzda zengin ürün yelpazesi ile doğru malzeme tercihi.', img: ceramicArt },
   { id: '03', title: 'Uygulama', desc: 'Vitaly ile dönüşüm, ustalıkla uygulanan hayalleriniz gerçeğe dönüşüyor.', img: showroomBath },
-  { id: '04', title: 'Teslim ve Memnuniyet', desc: 'Tamamlanmış iş, mutlu müşterilerle teslim edilir. Memnuniyetiniz bizim başarımızdır.', img: heroImg },
+  { id: '04', title: 'Teslim ve Memnuniyet', desc: 'Tamamlanmış iş, mutlu müşterilerle teslim edilir. Memnuniyetiniz bizim başarımızdır.', img: '/Logo.svg', logo: true },
 ]
 
 const REFERENCE_PROJECTS = [
@@ -299,8 +298,25 @@ function App() {
       <SiteHeader />
 
       {/* Hero */}
-      <section id="home" className="pt-16 lg:pt-20 pb-20 bg-surface overflow-hidden">
-        <div className="container-max text-center space-y-6 lg:space-y-10">
+      <section id="home" className="hero-section pt-16 lg:pt-20 pb-20 bg-surface overflow-hidden">
+        {/* Yellow gold gradient designs on corners */}
+        <div className="hero-gold-bg-left" aria-hidden="true" />
+        <div className="hero-gold-bg-right" aria-hidden="true" />
+
+        {/* Gold lines/stripes in the background */}
+        <div className="hero-gold-bg-lines" aria-hidden="true">
+          <svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" fill="none">
+            {/* Top Left corner lines */}
+            <line x1="-100" y1="120" x2="600" y2="-40" className="about-gold-stroke" />
+            <line x1="-50" y1="220" x2="700" y2="40" className="about-gold-stroke about-gold-stroke--soft" />
+            
+            {/* Bottom Right corner lines */}
+            <line x1="680" y1="700" x2="1380" y2="520" className="about-gold-stroke" />
+            <line x1="800" y1="620" x2="1380" y2="480" className="about-gold-stroke about-gold-stroke--light" />
+          </svg>
+        </div>
+
+        <div className="container-max relative z-10 text-center space-y-6 lg:space-y-10">
           <span className="section-label block">Vitaly Concept</span>
 
           <h1 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[60px] xl:text-[64px] leading-[1.08] text-obsidian max-w-5xl mx-auto tracking-tighter">
@@ -507,8 +523,12 @@ function App() {
                   <div className={`process-step-circle${idx === 0 ? ' is-active' : ''}`}>
                     <span className={`process-step-badge${idx === 0 ? ' is-active' : ''}`}>{step.id}</span>
                     <div className="process-step-ring">
-                      <div className="process-step-image">
-                        <img src={step.img} alt={step.title} className="w-full h-full object-cover" />
+                      <div className={`process-step-image${step.logo ? ' is-logo' : ''}`}>
+                        <img
+                          src={step.img}
+                          alt={step.title}
+                          className={step.logo ? 'w-full h-full object-contain p-5 sm:p-6' : 'w-full h-full object-cover'}
+                        />
                       </div>
                     </div>
                   </div>

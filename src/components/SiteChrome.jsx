@@ -70,13 +70,12 @@ export function SiteHeader() {
         }`}
       >
         <div className="container-max flex items-center justify-between gap-3 sm:gap-4 lg:gap-6 min-w-0">
-          <Link to="/" className="flex flex-col min-w-0 shrink">
-            <span className="font-display text-[1.05rem] sm:text-xl md:text-2xl tracking-wide text-obsidian truncate">
-              Vitaly Concept
-            </span>
-            <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.12em] sm:tracking-[0.15em] text-outline font-semibold truncate">
-              Seramik • Vitrifiye • Tasarım
-            </span>
+          <Link to="/" className="flex items-center min-w-0 shrink">
+            <img
+              src="/Logo.svg"
+              alt="Vitaly Concept"
+              className="h-8 sm:h-9 md:h-11 w-auto object-contain"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-4 xl:gap-8 shrink-0">
@@ -213,9 +212,13 @@ export function SiteFooter() {
   return (
     <footer className="bg-obsidian text-surface-container-high py-16">
       <div className="container-max space-y-12">
-        <div className="text-center">
-          <h4 className="font-display text-3xl text-white tracking-wide">Vitaly Concept</h4>
-          <p className="text-[10px] uppercase tracking-[0.15em] text-surface-container-high mt-1">
+        <div className="text-center flex flex-col items-center gap-2">
+          <img
+            src="/Logo.svg"
+            alt="Vitaly Concept"
+            className="h-12 sm:h-14 w-auto object-contain brightness-0 invert"
+          />
+          <p className="text-[10px] uppercase tracking-[0.15em] text-surface-container-high">
             Seramik • Vitrifiye • Tasarım
           </p>
         </div>
