@@ -16,7 +16,7 @@ function HeroSlider({ items }) {
               src={encodeURI(item.img)}
               alt={item.title}
               className="h-full w-full object-cover"
-              loading={idx < items.length ? 'eager' : 'lazy'}
+              loading={idx < 2 ? 'eager' : 'lazy'}
               draggable={false}
             />
           </div>

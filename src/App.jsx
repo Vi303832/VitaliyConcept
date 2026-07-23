@@ -20,27 +20,27 @@ import {
 } from 'lucide-react'
 
 const HERO_GALLERY = [
-  { img: '/img/mekan_luna.jpg', title: 'Luna White', width: 1600, height: 1346 },
-  { img: '/img/mekan_markuteri.jpg', title: 'Markuteri', width: 1600, height: 1200 },
-  { img: '/img/mekan_limestone.jpg', title: 'Lime Stone', width: 1600, height: 1142 },
-  { img: '/img/mekan_cafe_terrazo.jpg', title: 'Cafe Terrazo', width: 1600, height: 1400 },
-  { img: '/img/mekan_bosco.jpg', title: 'Bosco', width: 1600, height: 1142 },
-  { img: '/img/mekan_finewood.jpg', title: 'Finewood', width: 1600, height: 1142 },
-  { img: '/img/mekan_aura.jpg', title: 'Aura', width: 1600, height: 1142 },
-  { img: '/img/mekan_imperial.jpg', title: 'Imperial', width: 1600, height: 1145 },
-  { img: '/img/mekan_gold calacata.jpg', title: 'Gold Calacatta', width: 1600, height: 900 },
-  { img: '/img/mekan_river.jpg', title: 'River Full Lappato', width: 1600, height: 2844 },
+  { img: '/img/mekan_luna.webp', title: 'Luna White', width: 1600, height: 1346 },
+  { img: '/img/mekan_markuteri.webp', title: 'Markuteri', width: 1600, height: 1200 },
+  { img: '/img/mekan_limestone.webp', title: 'Lime Stone', width: 1600, height: 1142 },
+  { img: '/img/mekan_cafe_terrazo.webp', title: 'Cafe Terrazo', width: 1600, height: 1400 },
+  { img: '/img/mekan_bosco.webp', title: 'Bosco', width: 1600, height: 1142 },
+  { img: '/img/mekan_finewood.webp', title: 'Finewood', width: 1600, height: 1142 },
+  { img: '/img/mekan_aura.webp', title: 'Aura', width: 1600, height: 1142 },
+  { img: '/img/mekan_imperial.webp', title: 'Imperial', width: 1600, height: 1145 },
+  { img: '/img/mekan_gold calacata.webp', title: 'Gold Calacatta', width: 1600, height: 900 },
+  { img: '/img/mekan_river.webp', title: 'River Full Lappato', width: 1600, height: 2844 },
 ]
 
 const TRUST_MEDIA = {
-  poster: '/img/mekan_luna.jpg',
-  src: '/video/trust-preview.mp4',
+  poster: '/img/mekan_luna.webp',
+  src: '/video/NedenVitaly.mp4',
   type: 'video',
   slides: [
-    '/img/mekan_luna.jpg',
-    '/img/mekan_markuteri.jpg',
-    '/img/mekan_limestone.jpg',
-    '/img/mekan_cafe_terrazo.jpg',
+    '/img/mekan_luna.webp',
+    '/img/mekan_markuteri.webp',
+    '/img/mekan_limestone.webp',
+    '/img/mekan_cafe_terrazo.webp',
   ],
 }
 
@@ -58,12 +58,42 @@ const FEATURE_ICONS = [
 ]
 
 const CATEGORIES = [
-  { title: 'Salon & Antre Seramikleri', img: heroBg },
-  { title: 'Lüks Vitrifiye & Armatür', img: showroomBath },
-  { title: 'Mutfak & Tezgah Arası', img: ceramicArt },
-  { title: 'Dış Mekan & Teras Porselen', img: heroBg },
-  { title: 'Yapı Kimyasalları & Derz', img: ceramicArt },
-  { title: 'Özel Tasarım Banyo Mobilyası', img: showroomBath },
+  {
+    title: 'Luna White',
+    subtitle: 'Mermer Dokulu Porselen',
+    img: '/img/mekan_luna.webp',
+    href: '/urunler',
+  },
+  {
+    title: 'Lime Stone',
+    subtitle: 'Doğal Taş Efektli',
+    img: '/img/mekan_limestone.webp',
+    href: '/urunler',
+  },
+  {
+    title: 'Markuteri & Finewood',
+    subtitle: 'Ahşap Look Seriler',
+    img: '/img/mekan_markuteri.webp',
+    href: '/urunler',
+  },
+  {
+    title: 'Cafe Terrazo',
+    subtitle: 'Terrazo & Dekor',
+    img: '/img/mekan_cafe_terrazo.webp',
+    href: '/urunler',
+  },
+  {
+    title: 'Imperial',
+    subtitle: 'Lüks Siyah Porselen',
+    img: '/img/mekan_imperial.webp',
+    href: '/urunler',
+  },
+  {
+    title: 'Gold Calacatta',
+    subtitle: 'Klasik Mermer Serisi',
+    img: '/img/mekan_gold calacata.webp',
+    href: '/urunler',
+  },
 ]
 
 const PROCESS_STEPS = [
@@ -76,56 +106,56 @@ const PROCESS_STEPS = [
 const REFERENCE_PROJECTS = [
   {
     id: 1,
-    img: '/img/luna_white_lappato_60x120.jpg',
+    img: '/img/luna_white_lappato_60x120.webp',
     title: 'Luna White Lappato (60x120 cm)',
     tag: 'Mermer Dokulu Porselen',
     desc: 'Yumuşak beyaz damarlı lappato yüzeyi ile aydınlık banyo ve salon duvarlarına zarif bir mermer etkisi katan premium porselen.'
   },
   {
     id: 2,
-    img: '/img/limestone_taupe_60x120.jpg',
+    img: '/img/limestone_taupe_60x120.webp',
     title: 'Lime Stone Taupe (60x120 cm)',
     tag: 'Doğal Taş Efektli Porselen',
     desc: 'Sıcak taupe tonları ve doğal kireçtaşı dokusuyla otel, villa ve teras projelerinde dengeli bir zemin ve duvar çözümü.'
   },
   {
     id: 3,
-    img: '/img/markuteri_gri_60x60.jpg',
+    img: '/img/markuteri_gri_60x60.webp',
     title: 'Markuteri Gri Mat (60x60 cm)',
     tag: 'Mat Dekoratif Seramik',
     desc: 'İnce ağaçsı damarlı mat gri yüzeyi ile yatak odası ve oturma alanlarında sakin, modern bir atmosfer oluşturur.'
   },
   {
     id: 4,
-    img: '/img/aura_grey_60x120.jpg',
+    img: '/img/aura_grey_60x120.webp',
     title: 'Aura Grey (60x120 cm)',
     tag: 'Taş Dokulu Porselen',
     desc: 'Yumuşak gri taş deseni ve geniş formatıyla çağdaş mekanlarda hem zemin hem duvarda bütüncül bir görünüm sağlar.'
   },
   {
     id: 5,
-    img: '/img/finewood_kahve_20x120.jpg',
+    img: '/img/finewood_kahve_20x120.webp',
     title: 'Finewood Kahve (20x120 cm)',
     tag: 'Ahşap Dokulu Seramik',
     desc: 'Doğal kahve ahşap liflerini seramiğin dayanıklılığıyla birleştiren, ıslak hacim ve yaşam alanları için ideal parke görünümü.'
   },
   {
     id: 6,
-    img: '/img/imperial_siyah_60x120.jpg',
+    img: '/img/imperial_siyah_60x120.webp',
     title: 'Imperial Siyah (60x120 cm)',
     tag: 'Lüks Siyah Porselen',
     desc: 'Derin siyah tonu ve sofistike damar yapısıyla lüks banyo, showroom ve prestijli iç mekan projelerinin güçlü vurgusu.'
   },
   {
     id: 7,
-    img: '/img/fibre_grey_lappato_60x120.jpg',
+    img: '/img/fibre_grey_lappato_60x120.webp',
     title: 'Fibre Grey Lappato (60x120 cm)',
     tag: 'Tekstürel Lappato Porselen',
     desc: 'Lifli tekstür etkisi ve yarı parlak lappato yüzeyiyle modern mimariye hareket katan büyük ebatlı porselen karo.'
   },
   {
     id: 8,
-    img: '/img/terrazo_flake_antrasit_60x60.jpg',
+    img: '/img/terrazo_flake_antrasit_60x60.webp',
     title: 'Terrazo Flake Antrasit (60x60 cm)',
     tag: 'Terrazo Efektli Mat Seramik',
     desc: 'Antrasit zemin üzerinde flake dokusuyla cafe, mağaza ve çağdaş konut projelerinde karakterli bir yüzey seçeneği.'
@@ -136,19 +166,19 @@ const REVIEWS = [
   {
     name: 'Ahmet H.',
     role: 'Müşteri / Fransa',
-    avatar: '/img/mekan_luna.jpg',
+    avatar: '/img/mekan_luna.webp',
     text: 'Vitaly Concept banyo tasarımımızı tamamen yeniledi. Showroomda gösterdikleri profesyonel ilgi ve seramiklerin malzeme kalitesi gerçekten üst düzey. Fransa\'ya lojistik sevk süreçleri de kusursuzdu.'
   },
   {
     name: 'Mehmet T.',
     role: 'Mimar / Bursa',
-    avatar: '/img/mekan_markuteri.jpg',
+    avatar: '/img/mekan_markuteri.webp',
     text: 'Projelerimizde aradığımız ebat ve estetiği Vitaly Concept\'te bulabiliyoruz. Güçlü stokları ve zamanında teslimatları sayesinde Nilüfer\'deki villa şantiyemizi aksatmadan tamamladık.'
   },
   {
     name: 'Sophia K.',
     role: 'Müşteri / Almanya',
-    avatar: '/img/mekan_limestone.jpg',
+    avatar: '/img/mekan_limestone.webp',
     text: 'Showroom kalitesini evimize taşıdık. Luna White ve Lime Stone seramiklerin kalitesi tek kelimeyle harika. Satış öncesi ve sonrası verdikleri danışmanlık hizmeti için teşekkür ederiz.'
   }
 ]
@@ -338,7 +368,7 @@ function App() {
 
             <div className="relative">
               <div className="aspect-[4/5] overflow-hidden border border-obsidian/10">
-                <img src="/img/mekan_calacata marmi.jpg" alt="Calacatta Marmi seramik uygulama" className="w-full h-full object-cover" />
+                <img src="/img/mekan_calacata marmi.webp" alt="Calacatta Marmi seramik uygulama" className="w-full h-full object-cover" />
               </div>
               <div className="absolute bottom-6 left-6 bg-surface-container-lowest border border-obsidian/10 px-5 py-4 shadow-sm">
                 <div className="flex items-center gap-2">
@@ -358,7 +388,7 @@ function App() {
           <div className="container-max">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <MediaEmbed
-                className="trust-media aspect-[16/11] order-2 lg:order-1"
+                className="trust-media aspect-[16/11]"
                 poster={TRUST_MEDIA.poster}
                 src={TRUST_MEDIA.src}
                 type={TRUST_MEDIA.type}
@@ -366,7 +396,7 @@ function App() {
                 alt="Vitaly Concept showroom ve uygulama önizlemesi"
               />
 
-              <div className="space-y-6 order-1 lg:order-2">
+              <div className="space-y-6">
                 <span className="section-label block">Neden Vitaly?</span>
                 <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
                   Neden Projelerde
@@ -414,14 +444,12 @@ function App() {
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="section-label block">Koleksiyonlarımız</span>
             <h2 className="font-sans font-extrabold text-[2rem] sm:text-[2.5rem] lg:text-[2.75rem] xl:text-5xl text-obsidian leading-[1.08] tracking-tight">
-              Size Uygun
+              Mekânlarda Canlanan
               <br />
-              Tasarım Çözümünü
-              <br />
-              Bulun.
+              Koleksiyonlar.
             </h2>
             <p className="text-sm text-outline">
-              Geniş ve ferah showroomumuzda, seramikten banyo dolaplarına zengin seçenekler sunuyoruz.
+              Luna’dan Calacatta’ya, ahşap look’tan terrazo’ya — yukarıdaki galeride gördüğünüz serilerin tamamı.
             </p>
           </div>
 
@@ -429,16 +457,19 @@ function App() {
             {CATEGORIES.map((cat, idx) => (
               <a
                 key={idx}
-                href="/iletisim"
+                href={cat.href}
                 className="group border border-obsidian/10 bg-surface-container-lowest overflow-hidden hover:border-primary transition-colors duration-300"
               >
                 <div className="service-card-header">
-                  <span className="text-sm font-bold text-obsidian uppercase tracking-wide">{cat.title}</span>
-                  <span className="text-obsidian group-hover:translate-x-1 transition-transform text-lg">→</span>
+                  <div className="min-w-0">
+                    <span className="text-sm font-bold text-obsidian uppercase tracking-wide block truncate">{cat.title}</span>
+                    <span className="text-[10px] uppercase tracking-[0.12em] text-outline font-semibold block mt-0.5">{cat.subtitle}</span>
+                  </div>
+                  <span className="text-obsidian group-hover:translate-x-1 transition-transform text-lg shrink-0">→</span>
                 </div>
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
-                    src={cat.img}
+                    src={encodeURI(cat.img)}
                     alt={cat.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -448,8 +479,8 @@ function App() {
           </div>
 
           <div className="text-center pt-4">
-            <AnimatedButton href="/iletisim">
-              Tüm Hizmetleri Gör
+            <AnimatedButton href="/urunler">
+              Tüm Koleksiyonları Gör
             </AnimatedButton>
           </div>
         </div>
@@ -614,7 +645,7 @@ function App() {
           <div 
             className="absolute inset-x-6 md:inset-x-12 top-0 bottom-0 rounded-[32px] border border-obsidian/10 overflow-hidden" 
             style={{ 
-              backgroundImage: "url('/img/904303_sagano ceviz_30x120.jpg')", 
+              backgroundImage: "url('/img/904303_sagano ceviz_30x120.webp')", 
               backgroundSize: 'cover', 
               backgroundPosition: 'center' 
             }}
@@ -736,7 +767,7 @@ function App() {
               
               {/* Card 1: Top-Left Image */}
               <div className="border border-obsidian/10 overflow-hidden rounded-[24px] h-[200px]">
-                <img src="/img/mekan_river.jpg" alt="River seramik kaplama salon" className="w-full h-full object-cover" />
+                <img src="/img/mekan_river.webp" alt="River seramik kaplama salon" loading="lazy" className="w-full h-full object-cover" />
               </div>
 
               {/* Card 2: Top-Right Stats Card */}
@@ -767,7 +798,7 @@ function App() {
 
               {/* Card 4: Bottom-Right Image */}
               <div className="border border-obsidian/10 overflow-hidden rounded-[24px] h-[200px]">
-                <img src="/img/mekan_calacata marmi.jpg" alt="Calacatta Marmi seramik hol" className="w-full h-full object-cover" />
+                <img src="/img/mekan_calacata marmi.webp" alt="Calacatta Marmi seramik hol" loading="lazy" className="w-full h-full object-cover" />
               </div>
 
             </div>

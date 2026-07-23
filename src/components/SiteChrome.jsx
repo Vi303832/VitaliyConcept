@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedButton from './AnimatedButton'
 
 const NAV_LINKS = [
@@ -82,55 +83,90 @@ export function SiteHeader() {
             </AnimatedButton>
             <button
               type="button"
-              className="lg:hidden w-10 h-10 flex items-center justify-center text-obsidian"
+              className="lg:hidden w-10 h-10 border border-obsidian/10 hover:border-obsidian/25 hover:bg-obsidian/5 rounded-full flex items-center justify-center text-obsidian transition-all cursor-pointer"
               onClick={() => setMenuOpen(true)}
               aria-label="Menüyü aç"
             >
-              <Menu size={22} />
+              <Menu size={20} />
             </button>
           </div>
         </div>
       </header>
 
-      {menuOpen && (
-        <div className="fixed inset-0 z-[60] bg-surface-container-lowest lg:hidden">
-          <div className="container-max py-5 flex justify-between items-center border-b border-obsidian/10">
-            <span className="font-display text-xl text-obsidian">Menü</span>
-            <button type="button" onClick={() => setMenuOpen(false)} aria-label="Menüyü kapat">
-              <X size={22} />
-            </button>
-          </div>
-          <nav className="container-max py-10 flex flex-col gap-6">
-            {NAV_LINKS.map((link) =>
-              link.hash ? (
-                <a
-                  key={link.label}
-                  href={link.to}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-50 bg-obsidian/45 backdrop-blur-sm lg:hidden"
+            />
+
+            {/* Slide-out Drawer Panel */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+              className="fixed right-0 top-0 bottom-0 w-[300px] max-w-[85vw] z-[60] bg-surface shadow-2xl border-l border-obsidian/10 lg:hidden flex flex-col p-6 overflow-y-auto"
+            >
+              <div className="flex justify-between items-center pb-6 border-b border-obsidian/10 mb-8">
+                <span className="font-display text-lg text-obsidian tracking-wide">Menu</span>
+                <button
+                  type="button"
                   onClick={() => setMenuOpen(false)}
-                  className="text-sm uppercase tracking-[0.15em] font-bold text-obsidian"
+                  aria-label="Menüyü kapat"
+                  className="w-10 h-10 border border-obsidian/10 rounded-full flex items-center justify-center text-obsidian hover:bg-obsidian hover:text-white transition-colors cursor-pointer"
                 >
-                  {link.label}
-                </a>
-              ) : (
-                <NavLink
-                  key={link.label}
-                  to={link.to}
-                  end={link.end}
+                  <X size={18} />
+                </button>
+              </div>
+
+              <nav className="flex flex-col gap-2">
+                {NAV_LINKS.map((link) =>
+                  link.hash ? (
+                    <a
+                      key={link.label}
+                      href={link.to}
+                      onClick={() => setMenuOpen(false)}
+                      className="text-sm uppercase tracking-[0.1em] font-semibold text-obsidian hover:text-primary transition-colors py-3 border-b border-obsidian/5"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <NavLink
+                      key={link.label}
+                      to={link.to}
+                      end={link.end}
+                      onClick={() => setMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `text-sm uppercase tracking-[0.1em] font-semibold py-3 border-b border-obsidian/5 transition-colors ${
+                          isActive ? 'text-primary' : 'text-obsidian hover:text-primary'
+                        }`
+                      }
+                    >
+                      {link.label}
+                    </NavLink>
+                  )
+                )}
+              </nav>
+
+              <div className="mt-auto pt-6 border-t border-obsidian/10">
+                <AnimatedButton
+                  href="/iletisim#teklif"
                   onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    `text-sm uppercase tracking-[0.15em] font-bold ${isActive ? 'text-primary' : 'text-obsidian'}`
-                  }
+                  className="w-full text-center py-4 text-xs font-bold uppercase tracking-[0.15em] flex justify-center items-center"
                 >
-                  {link.label}
-                </NavLink>
-              )
-            )}
-            <AnimatedButton href="/iletisim#teklif" onClick={() => setMenuOpen(false)}>
-              Ücretsiz Teklif Al
-            </AnimatedButton>
-          </nav>
-        </div>
-      )}
+                  Ücretsiz Teklif Al
+                </AnimatedButton>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   )
 }
