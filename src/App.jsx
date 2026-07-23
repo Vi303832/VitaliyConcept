@@ -765,11 +765,11 @@ function App() {
             alt="Vitaly Concept uzman ekibi"
             className="absolute bottom-0 right-12 md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20 max-md:hidden"
           />
-          <span className="md:hidden block pt-50 " />
+          <span className="md:hidden block pt-50  " />
           <img
             src="/img/showroom_manager.png"
             alt="Vitaly Concept uzman ekibi"
-            className="absolute bottom-0 -right-10 md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20 md:hidden "
+            className="absolute bottom-0 -right-20 overflow-hidden md:right-24 h-[380px] md:h-[500px] lg:h-[530px] object-contain object-bottom pointer-events-none z-20 md:hidden "
           />
         </div>
       </section>
